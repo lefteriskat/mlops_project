@@ -1,7 +1,28 @@
-final_project
+Natural Language Processing - SMS Spam Classification
 ==============================
 
 Final Project for DTU Machine Learning Operations Course January 2023
+
+## Project Description
+
+### Overall goal of the project
+The goal of this project is to use Natural Language processing and train a neural network wchich successfully classifies sms text as spam or no spam. 
+
+### What framework are you going to use
+We plan to use Transformer framework.
+
+### How to you intend to include the framework into your project
+As a strating point, we are going to use some of the pretrained models offered by transformers. 
+Afterward, we are going to fine tune them according to our specific case.
+In addition we may include some preprocesssing modules offered by this framework.
+
+### What data are you going to run on (initially, may change)
+We are going to use the [SMS Spam Collection Dataset](https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset).
+The dataset consists of SMS tagged messages that have been collected for SMS Spam research. It contains 5,574 SMS messages in English, tagged acording being ham (legitimate) or spam.
+
+### What deep learning models do you expect to use 
+We are planing to use the [DistilBERT base model](https://huggingface.co/distilbert-base-uncased)  to achieve our goal.We are going to check also [BERT-TINY](https://huggingface.co/prajjwal1/bert-tiny) since our problem is relatively easy and it may also do the job.
+
 
 Project Organization
 ------------
