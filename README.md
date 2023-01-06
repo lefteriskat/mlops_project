@@ -9,7 +9,7 @@ Final Project for DTU Machine Learning Operations Course January 2023
 The goal of this project is to use Natural Language processing and train a neural network wchich successfully classifies sms text as spam or no spam. 
 
 ### What framework are you going to use
-We plan to use Transformer framework.
+We plan to use [Transformers](https://github.com/huggingface/transformers) framework.
 
 ### How to you intend to include the framework into your project
 As a strating point, we are going to use some of the pretrained models offered by transformers. 
