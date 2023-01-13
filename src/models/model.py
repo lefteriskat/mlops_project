@@ -48,10 +48,10 @@ class AwesomeSpamClassificationModel(torch.nn.Module):
 
 
 def calculate_accuracy(output, targets):
-    n_correct = (output==targets).sum().item()
+    n_correct = (output.max(1)[1]==targets).sum().item()
     return n_correct
 
-def train(model, trainloader,loss_function, optimizer=None, epochs=20, print_every=100):
+def train(model, trainloader,loss_function, optimizer=None, epochs=2, print_every=2):
     tr_loss = 0
     n_correct = 0
     nb_tr_steps = 0
@@ -64,6 +64,7 @@ def train(model, trainloader,loss_function, optimizer=None, epochs=20, print_eve
         for data, mask, targets in trainloader:
             steps += 1
             outputs = model.forward(data, mask)
+            outputs=outputs[0]
             loss = loss_function(outputs, targets)
             tr_loss += loss.item()
 

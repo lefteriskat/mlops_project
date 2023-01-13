@@ -9,7 +9,7 @@ import pandas as pd
 class Custom_Dataset(Dataset):
     def __init__(self, type,
                 tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-cased'),
-                max_len = 100):
+                max_len = 10):
 
         path = os.path.normpath(os.path.join(_PATH_DATA, "processed"))
         if type == "train":
