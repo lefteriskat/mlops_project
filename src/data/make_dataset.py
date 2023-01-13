@@ -9,12 +9,14 @@ import pandas
 import torch
 import numpy as np
 import requests 
+from sklearn.model_selection import train_test_split
 
 
 @click.command()
 @click.argument('input_filepath', type=click.Path(exists=True))
+@click.argument('interim_filepath', type=click.Path())
 @click.argument('output_filepath', type=click.Path())
-def main(input_filepath, output_filepath):
+def main(input_filepath, interim_filepath, output_filepath):
     """ Runs data processing scripts to turn raw data from (../raw) into
         cleaned data ready to be analyzed (saved in ../processed).
     """
@@ -34,9 +36,24 @@ def main(input_filepath, output_filepath):
     orig_message = dataset[dataset.columns[1]]
     logger.info(orig_message)
  
-    name_file_processed = "spam_processed.csv"
-    path_csv_save = os.path.normpath(os.path.join(output_filepath, name_file_processed))
-    dataset.to_csv(path_csv_save)  
+    path_csv_save = os.path.normpath(os.path.join(interim_filepath, name_file))
+    dataset.to_csv(path_csv_save)
+
+    TEST_SIZE = 0.2
+    VALIDATION_SIZE = 0.5
+    RANDOM_STATE = 2022
+
+    train, validation = train_test_split(dataset, random_state=RANDOM_STATE, test_size=TEST_SIZE, stratify=dataset['message_type'])
+    test, validation = train_test_split(validation, random_state=RANDOM_STATE, test_size=VALIDATION_SIZE, stratify=validation['message_type'])
+   
+    only_name = name_file.split('.')[0]
+    path_csv_train = os.path.normpath(os.path.join(output_filepath, "".join([only_name, "_train.csv"])))
+    path_csv_validation = os.path.normpath(os.path.join(output_filepath, "".join([only_name, "_validation.csv"])))
+    path_csv_test = os.path.normpath(os.path.join(output_filepath, "".join([only_name, "_test.csv"])))
+    
+    train.to_csv(path_csv_train)
+    validation.to_csv(path_csv_validation)
+    test.to_csv(path_csv_test)
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
