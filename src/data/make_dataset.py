@@ -8,34 +8,20 @@ import zipfile
 import pandas
 import torch
 import numpy as np
+import requests 
 
 
 @click.command()
-@click.argument('dataset_path', type=click.Path())
-def main(dataset_path):
+@click.argument('input_filepath', type=click.Path(exists=True))
+@click.argument('output_filepath', type=click.Path())
+def main(input_filepath, output_filepath):
     """ Runs data processing scripts to turn raw data from (../raw) into
         cleaned data ready to be analyzed (saved in ../processed).
     """
     logger = logging.getLogger(__name__)
-    logger.info('Downloading dataset from kaggle')
-    path = os.path.join(dataset_path, "raw")
 
-    try:
-        import kaggle
-    except:
-        logger.warning("kaggle no imported")
-    
-    try:
-        kaggle.api.competition_download_files("sms-spam-collection-dataset", path=path)
-    except Exception:
-        logger.warning("Downloaded failed")
-
-    out_folder_interim = os.path.join(dataset_path, "interim")
-    os.makedirs(out_folder_interim, exist_ok=True)
-    with zipfile.ZipFile(os.path.join(path, "sms_spam.zip"), 'r') as zip_ref:
-        zip_ref.extractall(out_folder_interim)
-    
-    path_csv = os.path.join(out_folder_interim, "spam.csv")
+    name_file = "spam.csv"
+    path_csv = os.path.normpath(os.path.join(input_filepath, name_file))
     dataset = pandas.read_csv(path_csv, encoding='latin-1')
 
     # Dropping unwanted columns
@@ -43,12 +29,14 @@ def main(dataset_path):
     # Chaning the labels for convinience
     dataset["v1"].replace({"ham": 0, "spam":1}, inplace=True)
     # Changing the column names for better 
-    dataset.rename({"v1": "message_type", "v2": "original_message"},axis=1, inplace=True)
+    dataset.rename({"v1": "message_type", "v2": "original_message"}, axis=1, inplace=True)
    
-    message_type = dataset[dataset.columns[0]]
     orig_message = dataset[dataset.columns[1]]
     logger.info(orig_message)
-
+ 
+    name_file_processed = "spam_processed.csv"
+    path_csv_save = os.path.normpath(os.path.join(output_filepath, name_file_processed))
+    dataset.to_csv(path_csv_save)  
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
