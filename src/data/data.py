@@ -1,5 +1,4 @@
 import torch
-import wget
 from torch.utils.data import Dataset
 import numpy as np
 import os
@@ -10,7 +9,7 @@ import pandas as pd
 class Custom_Dataset(Dataset):
     def __init__(self, type,
                 tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-cased'),
-                max_len = 1024):
+                max_len = 100):
 
         path = os.path.normpath(os.path.join(_PATH_DATA, "processed"))
         if type == "train":
@@ -31,10 +30,9 @@ class Custom_Dataset(Dataset):
         self.max_len = max_len
         
     def __getitem__(self, index):
-        title = str(self.data.TITLE[index])
-        title = " ".join(title.split())
+        content = self.data[index]
         inputs = self.tokenizer.encode_plus(
-            title,
+            content,
             None,
             add_special_tokens=True,
             max_length=self.max_len,
@@ -45,11 +43,10 @@ class Custom_Dataset(Dataset):
         ids = inputs['input_ids']
         mask = inputs['attention_mask']
 
-        return {
-            'ids': torch.tensor(ids, dtype=torch.long),
-            'mask': torch.tensor(mask, dtype=torch.long),
-            'targets': torch.tensor(self.data.ENCODE_CAT[index], dtype=torch.long)
-        } 
+        return (
+            torch.tensor(ids, dtype=torch.long),
+            torch.tensor(mask, dtype=torch.long),
+            torch.tensor(self.targets[index], dtype=torch.long))
     
     def __len__(self):
         return self.len
