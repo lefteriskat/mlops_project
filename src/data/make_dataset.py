@@ -32,9 +32,7 @@ def main(input_filepath, interim_filepath, output_filepath):
     # Chaning the labels for convinience
     dataset["v1"].replace({"ham": 0, "spam": 1}, inplace=True)
     # Changing the column names for better
-    dataset.rename(
-        {"v1": "message_type", "v2": "original_message"}, axis=1, inplace=True
-    )
+    dataset.rename({"v1": "message_type", "v2": "original_message"}, axis=1, inplace=True)
 
     orig_message = dataset[dataset.columns[1]]
     logger.info(orig_message)
