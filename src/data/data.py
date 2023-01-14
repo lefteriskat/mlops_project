@@ -6,10 +6,14 @@ from src import _PATH_DATA
 from transformers import DistilBertTokenizer
 import pandas as pd
 
+
 class Custom_Dataset(Dataset):
-    def __init__(self, type,
-                tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-cased'),
-                max_len = 10):
+    def __init__(
+        self,
+        type,
+        tokenizer=DistilBertTokenizer.from_pretrained("distilbert-base-cased"),
+        max_len=10,
+    ):
 
         path = os.path.normpath(os.path.join(_PATH_DATA, "processed"))
         if type == "train":
@@ -21,14 +25,14 @@ class Custom_Dataset(Dataset):
         else:
             raise Exception(f"Unknown Dataset type: {type}")
 
-        dataset = pd.read_csv(dataset_path, encoding='latin-1')
+        dataset = pd.read_csv(dataset_path, encoding="latin-1")
 
         self.data = dataset["original_message"]
-        self.targets = dataset["message_type"]   
+        self.targets = dataset["message_type"]
         self.len = len(dataset)
         self.tokenizer = tokenizer
         self.max_len = max_len
-        
+
     def __getitem__(self, index):
         content = self.data[index]
         inputs = self.tokenizer.encode_plus(
@@ -38,18 +42,20 @@ class Custom_Dataset(Dataset):
             max_length=self.max_len,
             pad_to_max_length=True,
             return_token_type_ids=True,
-            truncation=True
+            truncation=True,
         )
-        ids = inputs['input_ids']
-        mask = inputs['attention_mask']
+        ids = inputs["input_ids"]
+        mask = inputs["attention_mask"]
 
         return (
             torch.tensor(ids, dtype=torch.long),
             torch.tensor(mask, dtype=torch.long),
-            torch.tensor(self.targets[index], dtype=torch.long))
-    
+            torch.tensor(self.targets[index], dtype=torch.long),
+        )
+
     def __len__(self):
         return self.len
+
 
 if __name__ == "__main__":
     dataset_train = Custom_Dataset(type="train")
