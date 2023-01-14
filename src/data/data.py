@@ -12,8 +12,8 @@ class Custom_Dataset(Dataset):
     def __init__(
         self,
         type,
-        tokenizer=DistilBertTokenizer.from_pretrained("distilbert-base-cased",do_lower_case = True,
-        max_len=TOKENIZER_MAX_LEN)
+        tokenizer=DistilBertTokenizer.from_pretrained("distilbert-base-cased",do_lower_case = True),
+        max_len=TOKENIZER_MAX_LEN
     ):
 
         path = os.path.normpath(os.path.join(_PATH_DATA, "processed"))
