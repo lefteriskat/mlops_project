@@ -3,7 +3,11 @@ import pandas as pd
 import torch
 import transformers
 from torch.utils.data import DataLoader, Dataset
-from transformers import BertForSequenceClassification, DistilBertModel, DistilBertTokenizer
+from transformers import (
+    BertForSequenceClassification,
+    DistilBertModel,
+    DistilBertTokenizer,
+)
 
 # Defining some key variables that will be used later on in the training
 MAX_LEN = 512
@@ -50,7 +54,7 @@ def calculate_accuracy(output, targets):
 
 
 def train(model, trainloader, loss_function, optimizer=None, epochs=2, print_every=2):
-    
+
     for epoch in range(epochs):
         # Model in training mode, dropout is on
         model.train()
@@ -86,8 +90,8 @@ def train(model, trainloader, loss_function, optimizer=None, epochs=2, print_eve
         epoch_accu = (n_correct * 100) / nb_tr_examples
         print(f"Training Loss Epoch: {epoch_loss}")
         print(f"Training Accuracy Epoch: {epoch_accu}")
-        
-    torch.save(model.state_dict(), 'models/trained_model.pt')
+
+    torch.save(model.state_dict(), "models/trained_model.pt")
 
     return
 
@@ -113,7 +117,7 @@ def validate(model, loss_function, testloader):
             print("########################")
             print(outputs.max(1)[1])
             print("##########################")
-            
+
             loss = loss_function(outputs, targets)
             tr_loss += loss.item()
             n_correct += calculate_accuracy(outputs, targets)
@@ -128,7 +132,7 @@ def validate(model, loss_function, testloader):
                 # print(f"Validation Accuracy per 100 steps: {accu_step}")
     test_loss = tr_loss / nb_tr_steps
     test_accu = (n_correct * 100) / nb_tr_examples
-    
+
     print(f"Validation Loss: {test_loss}")
     print(f"Validation Accuracy: {test_accu}")
 
