@@ -10,7 +10,7 @@ from transformers import (
 )
 
 # Defining some key variables that will be used later on in the training
-MAX_LEN = 512
+TOKENIZER_MAX_LEN = 32
 TRAIN_BATCH_SIZE = 4
 VALID_BATCH_SIZE = 2
 EPOCHS = 1
@@ -19,21 +19,22 @@ tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-cased")
 
 
 OUTPUT_SIZE = 2
-INPUT_SIZE = 768
 DROP_P = 0.2
 
 
 class AwesomeSpamClassificationModel(torch.nn.Module):
-    def __init__(self, input_size, output_size, drop_p=0.2):
+    def __init__(self, output_size, drop_p=0.2):
         super(AwesomeSpamClassificationModel, self).__init__()
         # self.l1 = DistilBertModel.from_pretrained("distilbert-base-uncased")
         # self.pre_classifier = torch.nn.Linear(input_size, input_size)
         # self.dropout = torch.nn.Dropout(drop_p)
         # self.classifier = torch.nn.Linear(input_size, output_size)
         self.model = BertForSequenceClassification.from_pretrained(
-            "distilbert-base-uncased",
+            "prajjwal1/bert-tiny",
             torchscript=True,
             num_labels=output_size,
+            output_attentions = False,
+            output_hidden_states = False,
         )
 
     def forward(self, input_ids, attention_mask):
@@ -91,8 +92,6 @@ def train(model, trainloader, loss_function, optimizer=None, epochs=2, print_eve
         print(f"Training Loss Epoch: {epoch_loss}")
         print(f"Training Accuracy Epoch: {epoch_accu}")
 
-    torch.save(model.state_dict(), "models/trained_model.pt")
-
     return
 
 
@@ -108,16 +107,6 @@ def validate(model, loss_function, testloader):
             steps += 1
             outputs = model.forward(data, mask)
             outputs = outputs[0]
-            print("########################")
-            print(outputs)
-            print("##########################")
-            print("########################")
-            print(targets)
-            print("##########################")
-            print("########################")
-            print(outputs.max(1)[1])
-            print("##########################")
-
             loss = loss_function(outputs, targets)
             tr_loss += loss.item()
             n_correct += calculate_accuracy(outputs, targets)

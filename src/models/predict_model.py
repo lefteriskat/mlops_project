@@ -2,13 +2,14 @@ import click
 import torch
 from torch import cuda
 from model import AwesomeSpamClassificationModel, validate
+import model as mymodel
 from src.data.data import Custom_Dataset
 from torch.utils.data import DataLoader
 
 
 def load_checkpoint(filepath):
     checkpoint = torch.load(filepath)
-    model = AwesomeSpamClassificationModel(768, 2)
+    model = AwesomeSpamClassificationModel(mymodel.OUTPUT_SIZE)
     model.load_state_dict(checkpoint)
     return model
 
