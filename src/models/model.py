@@ -50,15 +50,15 @@ def calculate_accuracy(output, targets):
 
 
 def train(model, trainloader, loss_function, optimizer=None, epochs=2, print_every=2):
-    tr_loss = 0
-    n_correct = 0
-    nb_tr_steps = 0
-    nb_tr_examples = 0
-    steps = 0
-
+    
     for epoch in range(epochs):
         # Model in training mode, dropout is on
         model.train()
+        tr_loss = 0
+        n_correct = 0
+        nb_tr_steps = 0
+        nb_tr_examples = 0
+        steps = 0
         for data, mask, targets in trainloader:
             steps += 1
             outputs = model.forward(data, mask)
@@ -73,19 +73,19 @@ def train(model, trainloader, loss_function, optimizer=None, epochs=2, print_eve
             if steps % print_every == 0:
                 loss_step = tr_loss / nb_tr_steps
                 accu_step = (n_correct * 100) / nb_tr_examples
-                print(f"Training Loss per {print_every} steps: {loss_step}")
-                print(f"Training Accuracy per {print_every} steps: {accu_step}")
+                # print(f"Training Loss per {print_every} steps: {loss_step}")
+                # print(f"Training Accuracy per {print_every} steps: {accu_step}")
 
             optimizer.zero_grad()
             loss.backward()
             # # When using GPU
             optimizer.step()
 
-    print(f"The Total Accuracy for Epoch {epoch}: {(n_correct*100)/nb_tr_examples}")
-    epoch_loss = tr_loss / nb_tr_steps
-    epoch_accu = (n_correct * 100) / nb_tr_examples
-    print(f"Training Loss Epoch: {epoch_loss}")
-    print(f"Training Accuracy Epoch: {epoch_accu}")
+        print(f"The Total Accuracy for Epoch {epoch}: {(n_correct*100)/nb_tr_examples}")
+        epoch_loss = tr_loss / nb_tr_steps
+        epoch_accu = (n_correct * 100) / nb_tr_examples
+        print(f"Training Loss Epoch: {epoch_loss}")
+        print(f"Training Accuracy Epoch: {epoch_accu}")
 
     return
 
