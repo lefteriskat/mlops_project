@@ -86,6 +86,8 @@ def train(model, trainloader, loss_function, optimizer=None, epochs=2, print_eve
         epoch_accu = (n_correct * 100) / nb_tr_examples
         print(f"Training Loss Epoch: {epoch_loss}")
         print(f"Training Accuracy Epoch: {epoch_accu}")
+        
+    torch.save(model.state_dict(), 'models/trained_model.pt')
 
     return
 
@@ -93,13 +95,15 @@ def train(model, trainloader, loss_function, optimizer=None, epochs=2, print_eve
 def validate(model, loss_function, testloader):
     model.eval()
     n_correct = 0
-    n_wrong = 0
-    total = 0
+    tr_loss = 0
+    nb_tr_steps = 0
+    nb_tr_examples = 0
     steps = 0
     with torch.no_grad():
         for data, mask, targets in testloader:
             steps += 1
             outputs = model.forward(data, mask)
+            outputs = outputs[0]
             loss = loss_function(outputs, targets)
             tr_loss += loss.item()
             n_correct += calculate_accuracy(outputs, targets)
@@ -112,9 +116,10 @@ def validate(model, loss_function, testloader):
                 accu_step = (n_correct * 100) / nb_tr_examples
                 # print(f"Validation Loss per 100 steps: {loss_step}")
                 # print(f"Validation Accuracy per 100 steps: {accu_step}")
-    epoch_loss = tr_loss / nb_tr_steps
-    epoch_accu = (n_correct * 100) / nb_tr_examples
-    # print(f"Validation Loss Epoch: {epoch_loss}")
-    # print(f"Validation Accuracy Epoch: {epoch_accu}")
+    test_loss = tr_loss / nb_tr_steps
+    test_accu = (n_correct * 100) / nb_tr_examples
+    
+    print(f"Validation Loss: {test_loss}")
+    print(f"Validation Accuracy: {test_accu}")
 
-    return epoch_accu
+    return test_accu
