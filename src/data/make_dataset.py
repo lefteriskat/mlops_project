@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
-import click
 import logging
-from pathlib import Path
-from dotenv import find_dotenv, load_dotenv
 import os
 import zipfile
-import pandas
-import torch
+from pathlib import Path
+
+import click
 import numpy as np
+import pandas
 import requests
+import torch
+from dotenv import find_dotenv, load_dotenv
 from sklearn.model_selection import train_test_split
 
 

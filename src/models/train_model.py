@@ -1,8 +1,9 @@
 import model as mymodel
-from torch.utils.data import DataLoader
 import torch
-from src.data.data import Custom_Dataset
 from torch import cuda
+from torch.utils.data import DataLoader
+
+from src.data.data import Custom_Dataset
 
 device = "cuda" if cuda.is_available() else "cpu"
 

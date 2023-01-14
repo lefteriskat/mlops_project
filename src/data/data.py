@@ -1,10 +1,12 @@
+import os
+
+import numpy as np
+import pandas as pd
 import torch
 from torch.utils.data import Dataset
-import numpy as np
-import os
-from src import _PATH_DATA
 from transformers import DistilBertTokenizer
-import pandas as pd
+
+from src import _PATH_DATA
 
 
 class Custom_Dataset(Dataset):

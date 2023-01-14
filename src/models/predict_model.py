@@ -1,7 +1,6 @@
 import torch
-from model import AwesomeSpamClassificationModel
+from model import AwesomeSpamClassificationModel, validate
 from torch.utils.data import DataLoader
-from model import validate
 
 
 def load_checkpoint(filepath):

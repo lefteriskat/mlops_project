@@ -2,10 +2,9 @@
 import pandas as pd
 import torch
 import transformers
-from torch.utils.data import Dataset, DataLoader
-from transformers import DistilBertModel, DistilBertTokenizer
-from transformers import BertForSequenceClassification
-
+from torch.utils.data import DataLoader, Dataset
+from transformers import (BertForSequenceClassification, DistilBertModel,
+                          DistilBertTokenizer)
 
 # Defining some key variables that will be used later on in the training
 MAX_LEN = 512
