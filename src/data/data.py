@@ -13,7 +13,7 @@ class Custom_Dataset(Dataset):
     def __init__(
         self,
         type,
-        tokenizer=DistilBertTokenizer.from_pretrained("distilbert-base-cased"),
+        tokenizer=DistilBertTokenizer.from_pretrained("distilbert-base-cased",do_lower_case = True),
         max_len=10,
     ):
 

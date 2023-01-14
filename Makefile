@@ -33,6 +33,11 @@ PYTHON_INTERPRETER = python
 data: 
 	$(PYTHON_INTERPRETER) src/data/make_dataset.py data/raw data/interim data/processed
 
+train:
+	$(PYTHON_INTERPRETER) src/models/train_model.py
+
+predict:
+	$(PYTHON_INTERPRETER) src/models/predict_model.py models/trained_model.pt
 
 ## Delete all compiled Python files
 clean:

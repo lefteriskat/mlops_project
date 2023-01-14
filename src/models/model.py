@@ -104,6 +104,16 @@ def validate(model, loss_function, testloader):
             steps += 1
             outputs = model.forward(data, mask)
             outputs = outputs[0]
+            print("########################")
+            print(outputs)
+            print("##########################")
+            print("########################")
+            print(targets)
+            print("##########################")
+            print("########################")
+            print(outputs.max(1)[1])
+            print("##########################")
+            
             loss = loss_function(outputs, targets)
             tr_loss += loss.item()
             n_correct += calculate_accuracy(outputs, targets)
