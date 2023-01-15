@@ -1,0 +1,11 @@
+optimizer: Adam
+lr: 1e-3
+eps: 1e-8
+batch_size: 64
+num_workers: 2
+loss_function: CrossEntropyLoss
+epochs: 3
+seed: 42
+scheduler:
+  name: ExponentialLR
+  gamma: 0.1

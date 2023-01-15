@@ -1,0 +1,30 @@
+model:
+  model: bert
+  pretrained_model: prajjwal1/bert-tiny
+  output_size: 2
+train:
+  optimizer: Adam
+  lr: 0.001
+  eps: 1.0e-08
+  batch_size: 64
+  num_workers: 2
+  loss_function: CrossEntropyLoss
+  epochs: 4
+  seed: 42
+  scheduler:
+    name: ExponentialLR
+    gamma: 0.1
+predict:
+  quantization: 0
+  model_output_dir: models
+data:
+  path: data
+  tokanizer: DistilBertTokenizer
+  model_tokanizer: distilbert-base-cased
+  tokanizer_max_len: 10
+build_features:
+  path: data
+  max_sequence_length: 64
+  split_train: 0.8
+  split_test: 0.1
+  split_eval: 0.1
