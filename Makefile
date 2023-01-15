@@ -4,30 +4,40 @@
 # GLOBALS                                                                       #
 #################################################################################
 
-PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
-BUCKET = [OPTIONAL] your-bucket-for-syncing-data (do not include 's3://')
-PROFILE = default
-PROJECT_NAME = mlops_project
-PYTHON_INTERPRETER = python3
+# PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+# BUCKET = [OPTIONAL] your-bucket-for-syncing-data (do not include 's3://')
+# PROFILE = default
+# PROJECT_NAME = mlops_project
+# PYTHON_INTERPRETER = python3
+PYTHON_INTERPRETER = python
 
-ifeq (,$(shell which conda))
-HAS_CONDA=False
-else
-HAS_CONDA=True
-endif
+# ifeq (,$(shell which conda))
+# HAS_CONDA=False
+# else
+# HAS_CONDA=True
+# endif
 
 #################################################################################
 # COMMANDS                                                                      #
 #################################################################################
 
 ## Install Python Dependencies
-requirements: test_environment
-	$(PYTHON_INTERPRETER) -m pip install -U pip setuptools wheel
-	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
+# requirements: test_environment
+# 	$(PYTHON_INTERPRETER) -m pip install -U pip setuptools wheel
+# 	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
 
 ## Make Dataset
-data: requirements
-	$(PYTHON_INTERPRETER) src/data/make_dataset.py data/raw data/processed
+# data: requirements
+# 	$(PYTHON_INTERPRETER) src/data/make_dataset.py data/raw data/processed
+
+data: 
+	$(PYTHON_INTERPRETER) src/data/make_dataset.py data/raw data/interim data/processed
+
+train:
+	$(PYTHON_INTERPRETER) src/models/train_model.py
+
+predict:
+	$(PYTHON_INTERPRETER) src/models/predict_model.py models/trained_model.pt
 
 ## Delete all compiled Python files
 clean:
