@@ -20,3 +20,4 @@ hydra-core
 wandb
 dvc
 dvc[gs]
+google-cloud-secret-manager
