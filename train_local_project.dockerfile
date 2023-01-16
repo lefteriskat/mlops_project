@@ -12,6 +12,7 @@ COPY setup.py setup.py
 COPY src/ src/
 COPY models/ models/
 COPY config/ config/
+COPY .dvc/ .dvc/
 
 WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
