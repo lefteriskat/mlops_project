@@ -14,6 +14,9 @@ import wandb
 from src import _PATH_DATA
 from src.data.data import SpamDatasetDataModule
 from src.models.model import AwesomeSpamClassificationModel
+# from google.cloud import secretmanager
+# import os
+
 
 warnings.filterwarnings("ignore")
 
@@ -27,6 +30,15 @@ def main(config: DictConfig):
 
     print(f"configuration: \n {OmegaConf.to_yaml(config)}")
     torch.manual_seed(config.train.seed)
+
+    # client = secretmanager.SecretManagerServiceClient()
+    # PROJECT_ID = "dtumlops-374515"
+
+    # secret_id = "WANDB_API_KEY"
+    # resource_name = f"projects/{PROJECT_ID}/secrets/{secret_id}/versions/latest"
+    # response = client.access_secret_version(name=resource_name)
+    # api_key = response.payload.data.decode("UTF-8")
+    # os.environ["WANDB_API_KEY"] = api_key
 
     wandb.init(project="test-project", entity="mlops_project_dtu", config=config)
     wandb_logger = WandbLogger(project="test-project", config=config)
