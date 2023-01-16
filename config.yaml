@@ -5,4 +5,4 @@ workerPoolSpecs:
    replicaCount: 1
    containerSpec:
       imageUri: gcr.io/dtumlops-374515/project_train
-
+      args: -e WANDB_API_KEY=fa6bc2a3006ca49e7522c0d1ccfad335d9826153
