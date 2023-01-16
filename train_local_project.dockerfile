@@ -13,6 +13,7 @@ COPY src/ src/
 COPY models/ models/
 COPY config/ config/
 COPY .dvc/ .dvc/
+COPY .git/ .git/
 
 WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
