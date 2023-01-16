@@ -1,11 +1,10 @@
 # Importing the libraries needed
 import torch
-from transformers import (
-    BertForSequenceClassification
-)
+from transformers import BertForSequenceClassification
 from omegaconf import DictConfig
 from torch import optim
 import pytorch_lightning as pl
+
 
 class AwesomeSpamClassificationModel(pl.LightningModule):
     def __init__(self, config: DictConfig):
@@ -15,26 +14,19 @@ class AwesomeSpamClassificationModel(pl.LightningModule):
             config.model.pretrained_model,
             torchscript=True,
             num_labels=config.model.output_size,
-            output_attentions = False,
-            output_hidden_states = False,
+            output_attentions=False,
+            output_hidden_states=False,
         )
         self.save_hyperparameters()
 
     def forward(self, batch):
         input_ids, attention_mask, _ = batch
-        return self.model(
-            input_ids=input_ids,
-            token_type_ids=None,
-            attention_mask=attention_mask
-            )
+        return self.model(input_ids=input_ids, token_type_ids=None, attention_mask=attention_mask)
 
     def training_step(self, batch, batch_idx):
         input_ids, attention_mask, target = batch
         (train_loss, logits) = self.model(
-            input_ids = input_ids,
-            attention_mask=attention_mask,
-            token_type_ids=None,
-            labels=target
+            input_ids=input_ids, attention_mask=attention_mask, token_type_ids=None, labels=target
         )
         preds = torch.argmax(logits, dim=1)
         correct = (preds == target).sum()
@@ -46,10 +38,7 @@ class AwesomeSpamClassificationModel(pl.LightningModule):
     def validation_step(self, batch, batch_idx, dataloader_idx=0):
         input_ids, attention_mask, target = batch
         (validation_loss, logits) = self.model(
-            input_ids = input_ids,
-            attention_mask=attention_mask,
-            token_type_ids=None,
-            labels=target
+            input_ids=input_ids, attention_mask=attention_mask, token_type_ids=None, labels=target
         )
         preds = torch.argmax(logits, dim=1)
         correct = (preds == target).sum()
@@ -61,10 +50,7 @@ class AwesomeSpamClassificationModel(pl.LightningModule):
     def test_step(self, batch, batch_idx):
         input_ids, attention_mask, target = batch
         (test_loss, logits) = self.model(
-            input_ids = input_ids,
-            attention_mask=attention_mask,
-            token_type_ids=None,
-            labels=target
+            input_ids=input_ids, attention_mask=attention_mask, token_type_ids=None, labels=target
         )
         preds = torch.argmax(logits, dim=1)
         correct = (preds == target).sum()
@@ -80,6 +66,3 @@ class AwesomeSpamClassificationModel(pl.LightningModule):
     # def save(self):
     #     torch.save(self.model.state_dict(), 'models/trained_model.pt')
     #     return
-
-
-

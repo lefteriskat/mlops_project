@@ -7,10 +7,7 @@ from torch import cuda
 from src.data.data import SpamDatasetDataModule
 
 import hydra
-from hydra.core.hydra_config import HydraConfig
 from omegaconf import OmegaConf
-import pytorch_lightning as pl
-import torch
 
 import wandb
 from pytorch_lightning.loggers import WandbLogger
@@ -20,11 +17,12 @@ from omegaconf import DictConfig
 from src import _PATH_DATA
 from pytorch_lightning import Trainer
 import warnings
+
 warnings.filterwarnings("ignore")
 
 device = "cuda" if cuda.is_available() else "cpu"
 
-# @hydra.main(version_base=None, config_path="../../config", config_name="default_config.yaml")
+
 @hydra.main(version_base=None, config_path="../../config", config_name="config_all.yaml")
 def main(config: DictConfig):
     # logger = logging.getLogger(__name__)
@@ -33,13 +31,13 @@ def main(config: DictConfig):
     print(f"configuration: \n {OmegaConf.to_yaml(config)}")
     torch.manual_seed(config.train.seed)
 
-    wandb.init(project="test-project", entity = "mlops_project_dtu", config=config)
+    wandb.init(project="test-project", entity="mlops_project_dtu", config=config)
     wandb_logger = WandbLogger(project="test-project", config=config)
-    
-    model = AwesomeSpamClassificationModel(config = config)
+
+    model = AwesomeSpamClassificationModel(config=config)
     model.to(device)
 
-    data_module = SpamDatasetDataModule(data_path = _PATH_DATA, config = config)
+    data_module = SpamDatasetDataModule(data_path=_PATH_DATA, config=config)
     data_module.setup()
 
     trainer = Trainer(
@@ -48,7 +46,7 @@ def main(config: DictConfig):
         logger=wandb_logger,
         # val_check_interval=1.0,
         check_val_every_n_epoch=1,
-        gradient_clip_val=1.0
+        gradient_clip_val=1.0,
     )
     trainer.fit(
         model,
@@ -57,7 +55,6 @@ def main(config: DictConfig):
     )
     trainer.save_checkpoint("models/trained_model.ckpt")
 
-    
 
 if __name__ == "__main__":
     log_fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
