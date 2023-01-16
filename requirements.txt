@@ -18,3 +18,5 @@ python-dotenv>=0.5.1
 pytorch_lightning
 hydra-core
 wandb
+dvc
+dvc[gs]
