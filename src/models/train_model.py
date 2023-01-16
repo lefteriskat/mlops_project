@@ -15,7 +15,7 @@ from src import _PATH_DATA
 from src.data.data import SpamDatasetDataModule
 from src.models.model import AwesomeSpamClassificationModel
 # from google.cloud import secretmanager
-# import os
+import os
 
 
 warnings.filterwarnings("ignore")
@@ -40,6 +40,8 @@ def main(config: DictConfig):
     # api_key = response.payload.data.decode("UTF-8")
     # os.environ["WANDB_API_KEY"] = api_key
 
+    wandb_key = os.getenv('WANDB_API_KEY')
+    wandb.login(key=wandb_key)
     wandb.init(project="test-project", entity="mlops_project_dtu", config=config)
     wandb_logger = WandbLogger(project="test-project", config=config)
 
