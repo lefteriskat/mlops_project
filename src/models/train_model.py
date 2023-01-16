@@ -1,22 +1,19 @@
 import logging
+import warnings
 from pathlib import Path
 
-from src.models.model import AwesomeSpamClassificationModel
-import torch
-from torch import cuda
-from src.data.data import SpamDatasetDataModule
-
 import hydra
-from omegaconf import OmegaConf
+import torch
+from dotenv import find_dotenv, load_dotenv
+from omegaconf import DictConfig, OmegaConf
+from pytorch_lightning import Trainer
+from pytorch_lightning.loggers import WandbLogger
+from torch import cuda
 
 import wandb
-from pytorch_lightning.loggers import WandbLogger
-
-from dotenv import find_dotenv, load_dotenv
-from omegaconf import DictConfig
 from src import _PATH_DATA
-from pytorch_lightning import Trainer
-import warnings
+from src.data.data import SpamDatasetDataModule
+from src.models.model import AwesomeSpamClassificationModel
 
 warnings.filterwarnings("ignore")
 

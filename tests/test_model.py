@@ -1,8 +1,9 @@
-from src.data.data import SpamDatasetDataModule
-from src import _PATH_DATA
-from hydra import initialize, compose
-from src.models.model import AwesomeSpamClassificationModel
 import torch
+from hydra import compose, initialize
+
+from src import _PATH_DATA
+from src.data.data import SpamDatasetDataModule
+from src.models.model import AwesomeSpamClassificationModel
 
 
 def test_model():

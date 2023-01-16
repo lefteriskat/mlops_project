@@ -1,17 +1,17 @@
-import torch
-from model import AwesomeSpamClassificationModel
-import model as mymodel
-import hydra
-from omegaconf import DictConfig
-from src.data.data import SpamDatasetDataModule
-
 import logging
 import os
 from pathlib import Path
-from src import _PATH_DATA
+
+import hydra
+import model as mymodel
+import torch
+from dotenv import find_dotenv, load_dotenv
+from model import AwesomeSpamClassificationModel
+from omegaconf import DictConfig
 from pytorch_lightning import Trainer
 
-from dotenv import find_dotenv, load_dotenv
+from src import _PATH_DATA
+from src.data.data import SpamDatasetDataModule
 
 
 def load_checkpoint(filepath):

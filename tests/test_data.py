@@ -1,6 +1,7 @@
-from src.data.data import SpamDatasetDataModule
+from hydra import compose, initialize
+
 from src import _PATH_DATA
-from hydra import initialize, compose
+from src.data.data import SpamDatasetDataModule
 
 
 def test_dataset():

@@ -1,9 +1,9 @@
 # Importing the libraries needed
+import pytorch_lightning as pl
 import torch
-from transformers import BertForSequenceClassification
 from omegaconf import DictConfig
 from torch import optim
-import pytorch_lightning as pl
+from transformers import BertForSequenceClassification
 
 
 class AwesomeSpamClassificationModel(pl.LightningModule):

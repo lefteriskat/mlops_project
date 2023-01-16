@@ -1,10 +1,11 @@
 import os
+
 import pandas as pd
-import torch
-from torch.utils.data import Dataset, DataLoader
 import pytorch_lightning as pl
-from transformers import DistilBertTokenizer
+import torch
 from omegaconf import DictConfig
+from torch.utils.data import DataLoader, Dataset
+from transformers import DistilBertTokenizer
 
 
 class SpamDataset(Dataset):
