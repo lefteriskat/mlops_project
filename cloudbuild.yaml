@@ -1,10 +1,10 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-f', 'train_local_project.dockerfile','--build-arg','WANDB_API_KEY=$$WANDB_API_KEY', '-t', 'gcr.io/dtumlops-374515/project_train:latest', '.']
-  secretEnv: ['WANDB_API_KEY']
+  args: ['build', '-f', 'train_local_project.dockerfile','--build-arg','WANDB_API_KEY=$$SECRET_KEY', '-t', 'gcr.io/dtumlops-374515/project_train:latest', '.']
+  secretEnv: ['SECRET_KEY']
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/dtumlops-374515/project_train']
 availableSecrets:
   secretManager:
-  - versionName: projects/734091820628/secrets/WANDB_API_KEY/versions/latest
-    env: 'WANDB_API_KEY'
+  - versionName: projects/734091820628/secrets/WANDB_API_KEY/versions/1
+    env: 'SECRET_KEY'
