@@ -14,6 +14,10 @@ RUN pip install -r requirements.txt --no-cache-dir
 
 RUN dvc pull
 
+ARG WANDB_API_KEY=local
+ENV WANDB_API_KEY ${WANDB_API_KEY}
+
+
 ENV PYTHONPATH /
 ENTRYPOINT ["python", "-u", "src/models/train_model.py"]
 
