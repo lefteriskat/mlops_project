@@ -7,15 +7,9 @@ RUN apt update && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
 
-COPY requirements.txt requirements.txt
-COPY setup.py setup.py
-COPY src/ src/
-COPY models/ models/
-COPY config/ config/
-COPY .dvc/ .dvc/
-COPY .git/ .git/
+COPY . /mlops_project
 
-WORKDIR /
+WORKDIR /mlops_project
 RUN pip install -r requirements.txt --no-cache-dir
 
 RUN dvc pull
