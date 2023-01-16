@@ -13,7 +13,6 @@ WORKDIR /mlops_project
 RUN pip install -r requirements.txt --no-cache-dir
 
 RUN dvc pull
-COPY data/ data/
 
 ENV PYTHONPATH /
 ENTRYPOINT ["python", "-u", "src/models/train_model.py"]
