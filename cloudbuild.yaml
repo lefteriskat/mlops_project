@@ -6,5 +6,5 @@ steps:
   args: ['push', 'gcr.io/dtumlops-374515/project_train_2']
 availableSecrets:
   secretManager:
-  - versionName: projects/734091820628/secrets/WANDB_API_KEY/versions/latest
+  - versionName: projects/dtumlops-374515/secrets/WANDB_API_KEY/versions/latest
     env: 'WANDB_API_KEY'
