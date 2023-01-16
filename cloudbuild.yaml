@@ -1,7 +1,11 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: bash
-  args: ['build', '--build-arg','WANDB_API_KEY=$$SECRET_KEY', '-f', 'train_local_project.dockerfile', '-t', 'gcr.io/dtumlops-374515/project_train:latest', '.']
+  args: 
+     - -c
+     - |
+        docker build --build-arg WANDB_API_KEY=$$SECRET_KEY -f train_local_project.dockerfile -t gcr.io/dtumlops-374515/project_train:latest .
+  #args: ['build', '--build-arg','WANDB_API_KEY=$$SECRET_KEY', '-f', 'train_local_project.dockerfile', '-t', 'gcr.io/dtumlops-374515/project_train:latest', '.']
   secretEnv: ['SECRET_KEY']
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/dtumlops-374515/project_train']
