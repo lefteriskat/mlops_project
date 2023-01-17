@@ -66,3 +66,4 @@ class AwesomeSpamClassificationModel(pl.LightningModule):
     # def save(self):
     #     torch.save(self.model.state_dict(), 'models/trained_model.pt')
     #     return
+    
