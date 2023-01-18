@@ -60,7 +60,8 @@ def main(config: DictConfig):
     )
     # trainer.save_checkpoint("models/trained_model.ckpt")
     torch.save(model, "models/trained_model.pt")
-    pickle.dump(model, open("models/trained_model.pkl", 'wb'))
+    model_scripted = torch.jit.script(model) # Export to TorchScript
+    model_scripted.save('model_scripted.pt') # Save
 
 
 if __name__ == "__main__":
