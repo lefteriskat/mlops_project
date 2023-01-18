@@ -3,9 +3,12 @@ FROM python:3.10.0-slim
 
 # install python
 RUN apt update && \
-    apt install --no-install-recommends -y build-essential gcc && \
+    apt install --no-install-recommends -y build-essential gcc wget curl && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
+ENV CLOUDSDK_INSTALL_DIR /usr/local/gcloud/
+RUN curl -sSL https://sdk.cloud.google.com | bash
+ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin
 
 COPY . /mlops_project
 
