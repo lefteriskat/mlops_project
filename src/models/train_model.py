@@ -62,7 +62,6 @@ def main(config: DictConfig):
 
     model.eval()
 
-    # torch.save(model, "models/trained_model.pt")
     length = config.data.tokanizer_max_len
     tokens_tensor = torch.ones(1, length).long()
     mask_tensor = torch.ones(1, length).long()
