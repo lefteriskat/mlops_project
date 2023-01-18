@@ -60,16 +60,16 @@ def main(config: DictConfig):
     )
     # trainer.save_checkpoint("models/trained_model.ckpt")
 
-    model.eval() 
+    model.eval()
 
-    #torch.save(model, "models/trained_model.pt")
+    # torch.save(model, "models/trained_model.pt")
     length = config.data.tokanizer_max_len
     tokens_tensor = torch.ones(1, length).long()
     mask_tensor = torch.ones(1, length).long()
 
     dummy_input = [(tokens_tensor, mask_tensor, torch.tensor(0, dtype=torch.long))]
-    model_scripted = torch.jit.trace(model,dummy_input) # Export to TorchScript
-    model_scripted.save('models/model_scripted.pt') # Save
+    model_scripted = torch.jit.trace(model, dummy_input)  # Export to TorchScript
+    model_scripted.save("models/model_scripted.pt")  # Save
 
 
 if __name__ == "__main__":
