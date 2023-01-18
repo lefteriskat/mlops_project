@@ -1,4 +1,6 @@
 import logging
+# from google.cloud import secretmanager
+import os
 import warnings
 from pathlib import Path
 
@@ -14,16 +16,15 @@ import wandb
 from src import _PATH_DATA
 from src.data.data import SpamDatasetDataModule
 from src.models.model import AwesomeSpamClassificationModel
-# from google.cloud import secretmanager
-import os
-
 
 warnings.filterwarnings("ignore")
 
 device = "cuda" if cuda.is_available() else "cpu"
 
 
-@hydra.main(version_base=None, config_path="../../config", config_name="config_all.yaml")
+@hydra.main(
+    version_base=None, config_path="../../config", config_name="config_all.yaml"
+)
 def main(config: DictConfig):
     # logger = logging.getLogger(__name__)
     # logger.info("Start Training...")
@@ -40,7 +41,7 @@ def main(config: DictConfig):
     # api_key = response.payload.data.decode("UTF-8")
     # os.environ["WANDB_API_KEY"] = api_key
 
-    wandb_key = os.getenv('WANDB_API_KEY')
+    wandb_key = os.getenv("WANDB_API_KEY")
     print(f"############## key = {wandb_key} ########################")
     wandb.login(key=wandb_key)
     wandb.init(project="test-project", entity="mlops_project_dtu", config=config)

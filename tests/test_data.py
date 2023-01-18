@@ -15,5 +15,7 @@ def test_dataset():
     val_loader = data_module.val_dataloader()
     test_loader = data_module.test_dataloader()
 
-    total_length = len(train_loader.dataset) + len(val_loader.dataset) + len(test_loader.dataset)
+    total_length = (
+        len(train_loader.dataset) + len(val_loader.dataset) + len(test_loader.dataset)
+    )
     assert total_length == 5572

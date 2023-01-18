@@ -28,7 +28,9 @@ def main(input_filepath, interim_filepath, output_filepath):
     # Chaning the labels for convinience
     dataset["v1"].replace({"ham": 0, "spam": 1}, inplace=True)
     # Changing the column names for better
-    dataset.rename({"v1": "message_type", "v2": "original_message"}, axis=1, inplace=True)
+    dataset.rename(
+        {"v1": "message_type", "v2": "original_message"}, axis=1, inplace=True
+    )
 
     orig_message = dataset[dataset.columns[1]]
     logger.info(orig_message)
@@ -54,9 +56,15 @@ def main(input_filepath, interim_filepath, output_filepath):
     )
 
     only_name = name_file.split(".")[0]
-    path_csv_train = os.path.normpath(os.path.join(output_filepath, "".join([only_name, "_train.csv"])))
-    path_csv_validation = os.path.normpath(os.path.join(output_filepath, "".join([only_name, "_validation.csv"])))
-    path_csv_test = os.path.normpath(os.path.join(output_filepath, "".join([only_name, "_test.csv"])))
+    path_csv_train = os.path.normpath(
+        os.path.join(output_filepath, "".join([only_name, "_train.csv"]))
+    )
+    path_csv_validation = os.path.normpath(
+        os.path.join(output_filepath, "".join([only_name, "_validation.csv"]))
+    )
+    path_csv_test = os.path.normpath(
+        os.path.join(output_filepath, "".join([only_name, "_test.csv"]))
+    )
 
     train.to_csv(path_csv_train)
     validation.to_csv(path_csv_validation)

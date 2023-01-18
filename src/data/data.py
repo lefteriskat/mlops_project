@@ -29,7 +29,9 @@ class SpamDataset(Dataset):
 
         if config.data.tokanizer == "DistilBertTokenizer":
             tokanizer = DistilBertTokenizer
-        self.tokenizer = tokanizer.from_pretrained(config.data.model_tokanizer, do_lower_case=True)
+        self.tokenizer = tokanizer.from_pretrained(
+            config.data.model_tokanizer, do_lower_case=True
+        )
 
     def __getitem__(self, index):
         content = self.data[index]
@@ -66,22 +68,36 @@ class SpamDatasetDataModule(pl.LightningDataModule):
             raise Exception("data is not prepared")
 
     def setup(self) -> None:
-        self.train_set = SpamDataset(config=self.config, type="train", data_path=self.data_path_processed)
-        self.test_set = SpamDataset(config=self.config, type="test", data_path=self.data_path_processed)
-        self.vallidation_set = SpamDataset(config=self.config, type="validation", data_path=self.data_path_processed)
+        self.train_set = SpamDataset(
+            config=self.config, type="train", data_path=self.data_path_processed
+        )
+        self.test_set = SpamDataset(
+            config=self.config, type="test", data_path=self.data_path_processed
+        )
+        self.vallidation_set = SpamDataset(
+            config=self.config, type="validation", data_path=self.data_path_processed
+        )
 
     def train_dataloader(self) -> DataLoader:
-        return DataLoader(self.train_set, batch_size=self.config.train.batch_size, num_workers=self.config.train.num_workers)
+        return DataLoader(
+            self.train_set,
+            batch_size=self.config.train.batch_size,
+            num_workers=self.config.train.num_workers,
+        )
 
     def test_dataloader(self) -> DataLoader:
-        return DataLoader(self.test_set, batch_size=self.config.train.batch_size, num_workers=self.config.train.num_workers)
+        return DataLoader(
+            self.test_set,
+            batch_size=self.config.train.batch_size,
+            num_workers=self.config.train.num_workers,
+        )
 
     def val_dataloader(self) -> DataLoader:
         return DataLoader(
-            self.vallidation_set, batch_size=self.config.train.batch_size, num_workers=self.config.train.num_workers
+            self.vallidation_set,
+            batch_size=self.config.train.batch_size,
+            num_workers=self.config.train.num_workers,
         )
-
-
 
 
 # if __name__ == "__main__":

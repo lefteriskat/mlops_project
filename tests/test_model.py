@@ -21,4 +21,6 @@ def test_model():
 
     (logits,) = model(x)
 
-    assert logits.shape == torch.Size([config.train.batch_size, config.model.output_size])
+    assert logits.shape == torch.Size(
+        [config.train.batch_size, config.model.output_size]
+    )

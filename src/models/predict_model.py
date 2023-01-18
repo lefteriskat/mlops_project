@@ -23,11 +23,17 @@ def load_checkpoint(filepath):
 
 # @click.command()
 # @click.argument("model_checkpoint", type=click.Path(exists=True))
-@hydra.main(version_base=None, config_path="../../config", config_name="config_all.yaml")
+@hydra.main(
+    version_base=None, config_path="../../config", config_name="config_all.yaml"
+)
 def main(config: DictConfig):
     print("Evaluating until hitting the ceiling")
 
-    path_checkpoint = os.path.join(hydra.utils.get_original_cwd(), config.predict.model_output_dir, "trained_model.ckpt")
+    path_checkpoint = os.path.join(
+        hydra.utils.get_original_cwd(),
+        config.predict.model_output_dir,
+        "trained_model.ckpt",
+    )
 
     model = AwesomeSpamClassificationModel.load_from_checkpoint(path_checkpoint)
 
