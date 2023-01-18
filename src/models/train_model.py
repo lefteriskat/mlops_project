@@ -1,4 +1,6 @@
 import logging
+
+# from google.cloud import secretmanager
 import os
 import warnings
 from pathlib import Path
@@ -24,7 +26,7 @@ device = "cuda" if cuda.is_available() else "cpu"
 @hydra.main(
     version_base=None, config_path="../../config", config_name="config_all.yaml"
 )
-def main(config: DictConfig):c
+def main(config: DictConfig):
     # logger = logging.getLogger(__name__)
     # logger.info("Start Training...")
 
