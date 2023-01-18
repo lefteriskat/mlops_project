@@ -4,7 +4,7 @@ workerPoolSpecs:
       machineType: n1-highmem-2
    replicaCount: 1
    containerSpec:
-      imageUri: gcr.io/dtumlops-374515/project_train
+      imageUri: gcr.io/dtumlops-374515/project_train:latest
       env:
          - name: PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION
            value: python

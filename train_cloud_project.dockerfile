@@ -19,5 +19,6 @@ ENV WANDB_API_KEY ${WANDB_API_KEY}
 
 
 ENV PYTHONPATH /
+RUN chmod u+x training_in_cloud.sh
 ENTRYPOINT ["./training_in_cloud.sh"]
 
