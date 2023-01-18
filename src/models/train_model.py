@@ -59,7 +59,7 @@ def main(config: DictConfig):
         val_dataloaders=data_module.val_dataloader(),
     )
     # trainer.save_checkpoint("models/trained_model.ckpt")
-    # torch.save(model, "models/whole_model.pt")
+    torch.save(model, "models/trained_model.pt")
     pickle.dump(model, open("models/trained_model.pkl", 'wb'))
 
 
