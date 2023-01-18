@@ -3,7 +3,7 @@ from transformers import DistilBertTokenizer
 import torch
 import pickle
 
-BUCKET_NAME = "gs://mlops_trained_model_05"
+BUCKET_NAME = "mlops_trained_model_05"
 MODEL_FILE = "trained_model.ckpt"
 TOKENIZER_MAX_LEN = 10
 
@@ -39,7 +39,7 @@ def prediction(request):
             torch.tensor(0, dtype=torch.long).unsqueeze(0),
         )
 
-        (logits,) = model(data_tokenized)
+        (logits,) = my_model(data_tokenized)
         preds = torch.argmax(logits, dim=1)
         if preds.item() == 0:
             print(f'Belongs to class: {"ham"}')
