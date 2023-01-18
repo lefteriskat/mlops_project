@@ -19,5 +19,5 @@ ENV WANDB_API_KEY ${WANDB_API_KEY}
 
 
 ENV PYTHONPATH /
-ENTRYPOINT ["python", "-u", "src/models/train_model.py"]
+ENTRYPOINT ["./training_in_cloud.sh"]
 
