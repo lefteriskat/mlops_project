@@ -9,7 +9,7 @@ train:
   batch_size: 64
   num_workers: 2
   loss_function: CrossEntropyLoss
-  epochs: 4
+  epochs: 10
   seed: 42
   scheduler:
     name: ExponentialLR
