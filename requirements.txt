@@ -20,5 +20,4 @@ hydra-core
 wandb
 dvc
 dvc[gs]
-google-cloud-secret-manager
 protobuf==3.20.*
