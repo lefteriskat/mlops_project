@@ -125,7 +125,7 @@ s221937, s222964, s222725, s210703
 >
 > Answer:
 
---- question 3 fill here ---
+We used [Transformers](https://github.com/huggingface/transformers) framework. This framework implements state-of-the-art Machine Learning for Pytorch, and is a good fit for the goals of the project. From this framework we have used pre-trained the [DistilBERT base model](https://huggingface.co/distilbert-base-uncased)  to achieve our goal. 
 
 ## Coding environment
 
