@@ -1,43 +1,31 @@
 import logging
-import os
 from pathlib import Path
 
 import hydra
-import model as mymodel
 import torch
+import os
+
 from dotenv import find_dotenv, load_dotenv
 from model import AwesomeSpamClassificationModel
 from omegaconf import DictConfig
 from pytorch_lightning import Trainer
 
-from src import _PATH_DATA
 from src.data.data import SpamDatasetDataModule
 
 
-def load_checkpoint(filepath):
-    checkpoint = torch.load(filepath)
-    model = AwesomeSpamClassificationModel(mymodel.OUTPUT_SIZE)
-    model.load_state_dict(checkpoint)
-    return model
-
-
-# @click.command()
-# @click.argument("model_checkpoint", type=click.Path(exists=True))
 @hydra.main(
-    version_base=None, config_path="../../config", config_name="config_all.yaml"
+    version_base=None, config_path="../../config", config_name="default_config.yaml"
 )
 def main(config: DictConfig):
     print("Evaluating until hitting the ceiling")
 
-    path_checkpoint = os.path.join(
-        hydra.utils.get_original_cwd(),
-        config.predict.model_output_dir,
-        "trained_model.ckpt",
+    model = AwesomeSpamClassificationModel(config=config)
+    model = model.load_from_checkpoint(
+        os.path.join(config.model.model_output_dir, config.model.model_name_local)
     )
+    model.eval()
 
-    model = AwesomeSpamClassificationModel.load_from_checkpoint(path_checkpoint)
-
-    data_module = SpamDatasetDataModule(data_path=_PATH_DATA, config=config)
+    data_module = SpamDatasetDataModule(config=config)
     data_module.setup()
 
     trainer = Trainer()

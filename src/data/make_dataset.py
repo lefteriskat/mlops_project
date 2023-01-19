@@ -8,6 +8,7 @@ from omegaconf import DictConfig
 from dotenv import find_dotenv, load_dotenv
 from sklearn.model_selection import train_test_split
 
+
 @hydra.main(
     version_base=None, config_path="../../config", config_name="default_config.yaml"
 )
@@ -16,9 +17,9 @@ def main(config: DictConfig):
     Runs data processing scripts to turn raw data from (../raw) into
     cleaned data ready to be analyzed (saved in ../processed).
     """
-    path_csv = os.path.normpath(os.path.join(
-        config.data.path, config.data.path_input, config.data.name_file
-        ))
+    path_csv = os.path.normpath(
+        os.path.join(config.data.path, config.data.path_input, config.data.name_file)
+    )
     dataset = pd.read_csv(path_csv, encoding="latin-1")
 
     # Dropping unwanted columns
@@ -30,9 +31,9 @@ def main(config: DictConfig):
         {"v1": "message_type", "v2": "original_message"}, axis=1, inplace=True
     )
 
-    path_csv_save = os.path.normpath(os.path.join(
-        config.data.path, config.data.path_interim, config.data.name_file
-        ))
+    path_csv_save = os.path.normpath(
+        os.path.join(config.data.path, config.data.path_interim, config.data.name_file)
+    )
     dataset.to_csv(path_csv_save)
 
     validation_size = config.data.test_size + config.data.validation_size
@@ -52,16 +53,28 @@ def main(config: DictConfig):
     )
 
     only_name = config.data.name_file.split(".")[0]
-    path_csv_train = os.path.normpath(os.path.join(
-            config.data.path, config.data.path_processed, "".join([only_name, "_train.csv"]
-            )))
-    path_csv_validation = os.path.normpath(os.path.join(
-            config.data.path, config.data.path_processed, "".join([only_name, "_validation.csv"]
-            )))
-    path_csv_test = os.path.normpath(os.path.join(
-            config.data.path, config.data.path_processed, "".join([only_name, "_test.csv"]
-            )))
-        
+    path_csv_train = os.path.normpath(
+        os.path.join(
+            config.data.path,
+            config.data.path_processed,
+            "".join([only_name, "_train.csv"]),
+        )
+    )
+    path_csv_validation = os.path.normpath(
+        os.path.join(
+            config.data.path,
+            config.data.path_processed,
+            "".join([only_name, "_validation.csv"]),
+        )
+    )
+    path_csv_test = os.path.normpath(
+        os.path.join(
+            config.data.path,
+            config.data.path_processed,
+            "".join([only_name, "_test.csv"]),
+        )
+    )
+
     train.to_csv(path_csv_train)
     validation.to_csv(path_csv_validation)
     test.to_csv(path_csv_test)

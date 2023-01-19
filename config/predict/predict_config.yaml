@@ -1,3 +1,1 @@
 quantization: 0
-model_output_dir: "models"
-model_name: "model_scripted.pt"

@@ -13,7 +13,9 @@ from pytorch_lightning.loggers import WandbLogger
 import wandb
 from src.data.data import SpamDatasetDataModule
 from src.models.model import AwesomeSpamClassificationModel
+
 warnings.filterwarnings("ignore")
+
 
 @hydra.main(
     version_base=None, config_path="../../config", config_name="default_config.yaml"
@@ -38,16 +40,18 @@ def main(config: DictConfig):
     data_module.setup()
 
     trainer = Trainer(
-        max_epochs=config.train.epochs,
-        logger=wandb_logger,
-        check_val_every_n_epoch=1
+        max_epochs=config.train.epochs, logger=wandb_logger, check_val_every_n_epoch=1
     )
     trainer.fit(
         model,
         train_dataloaders=data_module.train_dataloader(),
         val_dataloaders=data_module.val_dataloader(),
     )
-    model.save()
+    trainer.save_checkpoint(
+        os.path.join(config.model.model_output_dir, config.model.model_name_local)
+    )
+    model.save_model_cloud()
+
 
 if __name__ == "__main__":
     log_fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"

@@ -6,6 +6,7 @@ from omegaconf import DictConfig
 from torch.utils.data import DataLoader, Dataset
 from transformers import DistilBertTokenizer
 
+
 class SpamDataset(Dataset):
     def __init__(self, config: DictConfig, type: str, data_path: str):
 

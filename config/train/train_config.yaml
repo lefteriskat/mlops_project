@@ -1,8 +1,7 @@
 optimizer: Adam
 lr: 0.001
-eps: 1.0e-08
 batch_size: 64
-num_workers: 2
+num_workers: 1
 loss_function: CrossEntropyLoss
 epochs: 2
 seed: 42

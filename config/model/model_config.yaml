@@ -1,3 +1,6 @@
 model: "bert"
 pretrained_model: "prajjwal1/bert-tiny"
 output_size: 2
+model_output_dir: "models"
+model_name_cloud: "model_scripted.pt"
+model_name_local: "trained_model.ckpt"
