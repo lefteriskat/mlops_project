@@ -3,9 +3,9 @@ Natural Language Processing - SMS Spam Classification
 
 Final Project for DTU Machine Learning Operations Course January 2023
 
-[![Test flake8](https://https://github.com/lefteriskat/mlops_project/actions/workflows/flake8.yml/badge.svg)](https://https://github.com/lefteriskat/mlops_project/actions/workflows/flake8.yml)
-[![Run tests](https://https://github.com/lefteriskat/mlops_project/actions/workflows/tests.yml/badge.svg?branch=main)](https://https://github.com/lefteriskat/mlops_project/actions/workflows/tests.yml)
-[![Test isort](https://https://github.com/lefteriskat/mlops_project/actions/workflows/isort.yml/badge.svg)](https://https://github.com/lefteriskat/mlops_project/actions/workflows/isort.yml)
+[![Test flake8](https://github.com/lefteriskat/mlops_project/actions/workflows/flake8.yml/badge.svg)](https://github.com/lefteriskat/mlops_project/actions/workflows/flake8.yml)
+[![Run tests](https://github.com/lefteriskat/mlops_project/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/lefteriskat/mlops_project/actions/workflows/tests.yml)
+[![Test isort](https://github.com/lefteriskat/mlops_project/actions/workflows/isort.yml/badge.svg)](https://github.com/lefteriskat/mlops_project/actions/workflows/isort.yml)
 ## Project Description
 
 ### Overall goal of the project
