@@ -17,8 +17,6 @@ import wandb
 from src import _PATH_DATA
 from src.data.data import SpamDatasetDataModule
 from src.models.model import AwesomeSpamClassificationModel
-import pickle
-
 warnings.filterwarnings("ignore")
 
 device = "cuda" if cuda.is_available() else "cpu"
