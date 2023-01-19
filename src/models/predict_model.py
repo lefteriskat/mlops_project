@@ -2,7 +2,6 @@ import logging
 from pathlib import Path
 
 import hydra
-import torch
 import os
 
 from dotenv import find_dotenv, load_dotenv
