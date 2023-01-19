@@ -170,7 +170,8 @@ We used hydra for managing our dependencies.
 >
 > Answer:
 
---- question 6 fill here ---
+We have used flake8, isort and black in our project to ensure code quality and format. For flake8 we give max-line-length = 125 to allow for more explanetory variable name. Those tools are useful in helping to ensure that code is readable, maintainable, and free of errors. They can help to automate some of the tedious and error-prone tasks associated with code development, allowing developers to focus on the more important aspects of the larger project.
+
 
 ## Version control
 
