@@ -34,10 +34,11 @@ class AwesomeSpamClassificationModel(pl.LightningModule):
             labels=target,
         )
         preds = torch.argmax(logits, dim=1)
-        accuracy = (preds == target).sum() / len(preds)
+        correct = (preds == target).sum()
+        accuracy = correct / len(target)
         self.log("train_loss", train_loss, prog_bar=True)
         self.log("train_accuracy", accuracy, prog_bar=True)
-        return
+        return {"loss": train_loss}
 
     def validation_step(self, batch, batch_idx):
         input_ids, attention_mask, target = batch
@@ -48,10 +49,11 @@ class AwesomeSpamClassificationModel(pl.LightningModule):
             labels=target,
         )
         preds = torch.argmax(logits, dim=1)
-        accuracy = (preds == target).sum() / len(preds)
+        correct = (preds == target).sum()
+        accuracy = correct / len(target)
         self.log("val_loss", validation_loss, prog_bar=True)
         self.log("val_accuracy", accuracy, prog_bar=True)
-        return
+        return {"loss": validation_loss}
 
     def test_step(self, batch, batch_idx):
         input_ids, attention_mask, target = batch
@@ -62,16 +64,17 @@ class AwesomeSpamClassificationModel(pl.LightningModule):
             labels=target,
         )
         preds = torch.argmax(logits, dim=1)
-        accuracy = (preds == target).sum() / len(preds)
+        correct = (preds == target).sum()
+        accuracy = correct / len(target)
         self.log("test_loss", test_loss, prog_bar=True)
         self.log("test_accuracy", accuracy, prog_bar=True)
-        return
+        return {"loss": test_loss}
 
     def configure_optimizers(self):
         if self.config.train.optimizer == "Adam":
-            optimizer = optim.Adam(self.model.parameters(), lr=self.config.train.lr)
+            optimizer = optim.Adam(self.parameters(), lr=self.config.train.lr)
         elif self.config.train.optimizer == "SGD":
-            optimizer = optim.SGD(self.model.parameters(), lr=self.config.train.lr)
+            optimizer = optim.SGD(self.parameters(), lr=self.config.train.lr)
         else:
             raise Exception("Not availabe optimizer chosen")
         return optimizer
