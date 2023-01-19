@@ -125,7 +125,7 @@ s221937, s222964, s222725, s210703
 >
 > Answer:
 
-We used [Transformers](https://github.com/huggingface/transformers) framework. This framework implements state-of-the-art Machine Learning for Pytorch, and is a good fit for the goals of the project. From this framework we have used pre-trained the [DistilBERT base model](https://huggingface.co/distilbert-base-uncased)  to achieve our goal. 
+We used [Transformers](https://github.com/huggingface/transformers) framework in our project. This framework implements state-of-the-art Machine Learning for Pytorch, and is a good fit for the goals of the project. From this framework we have used pre-trained the [DistilBERT base model](https://huggingface.co/distilbert-base-uncased)  to achieve our goal. We have started our project by using pre-trained model which help us to focus more implementing on the different techniques taught in the course. we implemented our BERT model to classifies sms text as spam or no spam using [SMS Spam Collection Dataset](https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset) where we have specified different parameters like batch size.....  
 
 ## Coding environment
 
