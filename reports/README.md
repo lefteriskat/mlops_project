@@ -143,8 +143,7 @@ We used [Transformers](https://github.com/huggingface/transformers) framework in
 > *complete copy of our development enviroment, one would have to run the following commands*
 >
 > Answer:
-We used hydra for managing our dependencies. 
---- question 4 fill here ---
+We used *pip* to install packages and *conda* to create the environment. The list of dependencies was auto-generated using *pipreqs* command which creates the *requirements.txt* file which contains a list of requirements based on imports in the project. We also added missing requirements manually. To get a complete copy of our development environment, the first step is to create a new conda environment (*conda create -n "my_environment python="version"*) and activate it (*conda activate "my_environment*). The project environment was built with Python version 3.10. After that, clone the github project (*git clone https://github.com/lefteriskat/mlops_project.git*) and install everything from the requirements.txt file (*pip install -r requirements.txt*).
 
 ### Question 5
 
@@ -191,7 +190,7 @@ We have used flake8, isort and black in our project to ensure code quality and f
 >
 > Answer:
 
---- question 7 fill here ---
+For this project, we have implemented 2 tests focusing on the dataset and model. For the dataset we tested that after spliting it into training, validation and testing datasets, the total number of inputs is equal to the total size of the dataset. Model testing ensures that output provided by the model has the desired shaped. Unfortunately, out tests do not cover the training and prediction code.
 
 ### Question 8
 
@@ -206,7 +205,7 @@ We have used flake8, isort and black in our project to ensure code quality and f
 >
 > Answer:
 
---- question 8 fill here ---
+The total code coverage of code is 68% which includes dataset and model code. The coverage rate for data script is 84% and for the model script is only 36%. The high percetange for data script was expected because the data script splits the dataset and tokenizes it, so we managed to cover most parts of the code. Since we did not test the training and the prediction code at all and the model checks only one functionality, we expect our code not to detect the errors. Beside code failures, there are many reasons why our project could fail such as wrong dependencies, wrong deployment of the code, not enough permission, corrupted data.
 
 ### Question 9
 
@@ -236,7 +235,7 @@ We have used flake8, isort and black in our project to ensure code quality and f
 >
 > Answer:
 
---- question 10 fill here ---
+We used dvc to pull data when building **docker** images. Firstly, we store the data into the Google Drive as remote storage solution for our data, but this solution requires to authentic each time we try to either push or pull the data. To solve this problem, we used Google Cloud Storage to store the data into a public bucket which allows us to download the data without being authenticated. The advantage of storing the data into the cloud is that the data is versioned for each experiment by replacing the large files into small metafile. Beside saving disk space on the local machine, also the experiments become reproducible in case the dataset changes. It helps us pull data from the cloud to control user permissions and consistency when building a docker image.
 
 ### Question 11
 
