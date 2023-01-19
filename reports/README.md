@@ -125,7 +125,7 @@ s221937, s222964, s222725, s210703
 >
 > Answer:
 
-We used [Transformers](https://github.com/huggingface/transformers) framework in our project. This framework implements state-of-the-art Machine Learning for Pytorch, and is a good fit for the goals of the project. From this framework we have used pre-trained the [BertForSequenceClassification](https://huggingface.co/docs/transformers/v4.25.1/en/model_doc/bert#transformers.BertForSequenceClassification)  to achieve our goal. We have started our project by using pre-trained model which help us to focus more implementing on the different techniques taught in the course. we implemented our BERT model to classifies sms text as spam or no spam using [SMS Spam Collection Dataset](https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset) where we have specified different parameters like batch size.....  
+We used [Transformers](https://github.com/huggingface/transformers) framework in our project. This framework implements state-of-the-art Machine Learning for Pytorch, and is a good fit for the goals of the project. From this framework we have used pre-trained the [BertForSequenceClassification](https://huggingface.co/docs/transformers/v4.25.1/en/model_doc/bert#transformers.BertForSequenceClassification)  to achieve our goal. We have started our project by using pre-trained model which help us to focus more implementing on the different techniques taught in the course. we implemented our BERT model to classifies sms text as spam or no spam using [SMS Spam Collection Dataset](https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset) where we have specified different parameters like batch size, epoch, optimizer, lr etc. for training our model.   
 
 ## Coding environment
 
@@ -143,7 +143,7 @@ We used [Transformers](https://github.com/huggingface/transformers) framework in
 > *complete copy of our development enviroment, one would have to run the following commands*
 >
 > Answer:
-
+We used hydra for managing our dependencies. 
 --- question 4 fill here ---
 
 ### Question 5
@@ -269,7 +269,10 @@ We used [Transformers](https://github.com/huggingface/transformers) framework in
 >
 > Answer:
 
---- question 12 fill here ---
+We have used hydra to configure our project.  It helps to load hyperparameters from a config/folder containing yaml files with hyperparameters for the model, predict and train in separate config files within subfolders. So when the config-files are filled in, it gets all the necessary hyperparameters from there and the model can be trained using the following way: 
+
+python train_model.py
+
 
 ### Question 13
 
