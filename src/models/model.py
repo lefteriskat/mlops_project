@@ -1,10 +1,9 @@
-# Importing the libraries needed
 import pytorch_lightning as pl
 import torch
 from omegaconf import DictConfig
 from torch import optim
 from transformers import BertForSequenceClassification
-
+import os
 
 class AwesomeSpamClassificationModel(pl.LightningModule):
     def __init__(self, config: DictConfig):
@@ -74,6 +73,13 @@ class AwesomeSpamClassificationModel(pl.LightningModule):
         optimizer = optim.Adam(self.model.parameters(), self.config.train.lr)
         return optimizer
 
-    # def save(self):
-    #     torch.save(self.model.state_dict(), 'models/trained_model.pt')
-    #     return
+    def save_model(self):
+        self.eval()
+        tokens_tensor = torch.ones(1, self.config.data.tokanizer_max_len).long()
+        mask_tensor = torch.ones(1, self.config.data.tokanizer_max_len).long()
+        dummy_input = [(tokens_tensor, mask_tensor, torch.tensor(0, dtype=torch.long))]
+        model_scripted = torch.jit.trace(self, dummy_input)  # Export to TorchScript
+        model_scripted.save(
+            os.path.join(self.config.predict.model_output_dir, self.config.predict.model_name).replace("\\","/")
+        )  # Save
+        return

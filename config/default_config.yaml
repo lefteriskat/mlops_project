@@ -3,4 +3,3 @@ defaults:
     - train: train_config.yaml
     - predict: predict_config.yaml
     - data: data_config.yaml
-    - build_features: build_features_config.yaml

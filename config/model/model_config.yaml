@@ -1,5 +1,3 @@
-model: 'bert'
-#model: 'distilbert'
+model: "bert"
 pretrained_model: "prajjwal1/bert-tiny"
 output_size: 2
-

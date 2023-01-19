@@ -1,4 +1,12 @@
 path: data
+path_input: raw
+path_interim: interim
+path_processed: processed
+name_file: "spam.csv"
+train_size: 0.8
+test_size: 0.1
+validation_size: 0.1
+random_state: 2022
 tokanizer: DistilBertTokenizer
 model_tokanizer: "distilbert-base-cased"
 tokanizer_max_len: 10

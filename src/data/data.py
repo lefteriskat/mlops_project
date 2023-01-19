@@ -1,5 +1,4 @@
 import os
-
 import pandas as pd
 import pytorch_lightning as pl
 import torch
@@ -7,11 +6,9 @@ from omegaconf import DictConfig
 from torch.utils.data import DataLoader, Dataset
 from transformers import DistilBertTokenizer
 
-
 class SpamDataset(Dataset):
     def __init__(self, config: DictConfig, type: str, data_path: str):
 
-        # path = os.path.normpath(os.path.join(data_path, "processed"))
         if type == "train":
             dataset_path = os.path.join(data_path, "spam_train.csv")
         elif type == "validation":
@@ -58,9 +55,9 @@ class SpamDataset(Dataset):
 
 
 class SpamDatasetDataModule(pl.LightningDataModule):
-    def __init__(self, data_path: str, config: DictConfig):
+    def __init__(self, config: DictConfig):
         super().__init__()
-        self.data_path_processed = os.path.join(data_path, "processed")
+        self.data_path_processed = os.path.join(config.data.path, "processed")
         self.config = config
 
     def prepare_data(self) -> None:
@@ -98,18 +95,3 @@ class SpamDatasetDataModule(pl.LightningDataModule):
             batch_size=self.config.train.batch_size,
             num_workers=self.config.train.num_workers,
         )
-
-
-# if __name__ == "__main__":
-#     data_module = SpamDatasetDataModule()
-
-#     dataset_train = Custom_Dataset(type="train")
-#     dataset_validation = Custom_Dataset(type="validation")
-#     dataset_test = Custom_Dataset(type="test")
-
-#     print(dataset_train.data.shape)
-#     print(dataset_train.targets.shape)
-#     print(dataset_validation.data.shape)
-#     print(dataset_validation.targets.shape)
-#     print(dataset_test.data.shape)
-#     print(dataset_test.targets.shape)
