@@ -236,7 +236,7 @@ The total code coverage of code is 68% which includes dataset and model code. Th
 >
 > Answer:
 
-We used dvc to pull data when building **docker** images. Firstly, we store the data into the Google Drive as remote storage solution for our data, but this solution requires to authentic each time we try to either push or pull the data. To solve this problem, we used Google Cloud Storage to store the data into a public bucket which allows us to download the data without being authenticated. The advantage of storing the data into the cloud is that the data is versioned for each experiment by replacing the large files into small metafile. Beside saving disk space on the local machine, also the experiments become reproducible in case the dataset changes. It helps us pull data from the cloud to control user permissions and consistency when building a docker image.
+We used dvc to pull data when building **docker** images. Firstly, we stored the data into the Google Drive as remote storage solution for our data, but this solution requires to authentic each time we try to either push or pull the data. To solve this problem, we used Google Cloud Storage to store the data into a public bucket which allows us to download the data without being authenticated. The advantage of storing the data into the cloud is that the data is versioned for each experiment by replacing the large files into small metafile. Beside saving disk space on the local machine, also the experiments become reproducible in case the dataset changes. It helps us pull data from the cloud to control user permissions and consistency when building a docker image.
 
 ### Question 11
 
@@ -462,7 +462,8 @@ For our project we developed two docker images: one for training and one for dep
 >
 > Answer:
 
---- question 25 fill here ---
+The overall architecture of our system can be seen in [this figure](figures/architecture.png). The starting point of the diagram is our local machine, where we computed the data, created the model classes, integrated the **wandb** service and used **hydra** to get configuration parameters. After parsing the data, we ensured the control of it by uploading it to cloud data storage from where we pull it every time a docker image is created. The diagram shows that whenever we **commit** and **push** code to **github**, it auto triggers the github actions (**unittesting, flake8 and isort**) and a **cloud build** starts building a **docker** image with the latest version of the code and dataset. Once the image is built, it can be found in the **Container Registry**. At this point, an user should create a custom job on **Vertex AI** to run the latest docker image from which results the **trained model** exported to the **Bucket storage**. Looking at the **deployment** phase, we created a **FastAPI** function which loads the model from the bucket storage and creates a prediction for a given input. Using this function, we created a docker container to deploy it in the **Cloud Run** because docker always can use the dependencies of our application. We also used **Cloud Functions** to deploy our model.
+
 
 ### Question 26
 
