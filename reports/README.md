@@ -221,7 +221,7 @@ The total code coverage of code is 68% which includes dataset and model code. Th
 >
 > Answer:
 
---- question 9 fill here ---
+We made use of both branches and pull requests in our project workflow. In our group, each member had a branch that each individual had to work on. When we have done developing any specific feature we make a pull request where other group members checked the pull request and merged it. If there were any conflicts or errors found while reviewing the pull requests, other members checked the code properly and find out the solution and then correct it and merge the pull request. In this way, pull requests helped us to improve version control by allowing multiple developers to collaborate and review changes to a codebase before they are merged into the main branch.
 
 ### Question 10
 
