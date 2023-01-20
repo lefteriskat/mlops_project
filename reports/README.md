@@ -159,7 +159,7 @@ We used *pip* to install packages and *conda* to create the environment. The lis
 > *experiments.*
 > Answer:
 
-From the cookiecutter template in the src/data we have filled make_dataset.py, add data.py  we have filled out the data.py, predict_model.py, train_model.py files, and added data.py, model.py. From this directory, we have removed the features and visualization folder including their files. We have added conf.py, Makefile, index.rst, etc. files in the doc folder. We have added .dvc, cloud_app, config, and tests folder with files for implementing DVC, FastAPI, and testing our data and model. Moreover, we also have added different files like train_local_project.dockerfile, train_cloud_project.dockerfile, predict_local_project.dockerfile, traning_in_cloud.sh, cloud_function.py, cloud_build.yaml, etc. for the purpose of building docker image and deploying our model in the cloud environment. 
+From the cookiecutter template in the src/data we have filled make_dataset.py, predict_model.py, train_model.py files, and added data.py, model.py. From this directory, we have removed the features and visualization folder including their files. We have added conf.py, Makefile, index.rst, etc. files in the doc folder. We have added .dvc, cloud_app, config, and tests folder with files for implementing DVC, FastAPI, and testing our data and model. Moreover, we also have added different files like train_local_project.dockerfile, train_cloud_project.dockerfile, predict_local_project.dockerfile, traning_in_cloud.sh, cloud_function.py, cloud_build.yaml, etc. for the purpose of building docker image and deploying our model in the cloud environment. 
 
 
 ### Question 6
@@ -221,7 +221,7 @@ The total code coverage of code is 68% which includes dataset and model code. Th
 >
 > Answer:
 
---- question 9 fill here ---
+We made use of both branches and pull requests in our project workflow. In our group, each member had a branch that each individual had to work on. When we have done developing any specific feature we make a pull request where other group members checked the pull request and merged it. If there were any conflicts or errors found while reviewing the pull requests, other members checked the code properly and find out the solution and then correct it and merge the pull request. In this way, pull requests helped us to improve version control by allowing multiple developers to collaborate and review changes to a codebase before they are merged into the main branch.
 
 ### Question 10
 
@@ -236,7 +236,7 @@ The total code coverage of code is 68% which includes dataset and model code. Th
 >
 > Answer:
 
-We used dvc to pull data when building **docker** images. Firstly, we store the data into the Google Drive as remote storage solution for our data, but this solution requires to authentic each time we try to either push or pull the data. To solve this problem, we used Google Cloud Storage to store the data into a public bucket which allows us to download the data without being authenticated. The advantage of storing the data into the cloud is that the data is versioned for each experiment by replacing the large files into small metafile. Beside saving disk space on the local machine, also the experiments become reproducible in case the dataset changes. It helps us pull data from the cloud to control user permissions and consistency when building a docker image.
+We used dvc to pull data when building **docker** images. Firstly, we stored the data into the Google Drive as remote storage solution for our data, but this solution requires to authentic each time we try to either push or pull the data. To solve this problem, we used Google Cloud Storage to store the data into a public bucket which allows us to download the data without being authenticated. The advantage of storing the data into the cloud is that the data is versioned for each experiment by replacing the large files into small metafile. Beside saving disk space on the local machine, also the experiments become reproducible in case the dataset changes. It helps us pull data from the cloud to control user permissions and consistency when building a docker image.
 
 ### Question 11
 
@@ -477,7 +477,8 @@ credits during both the exercises and te project whereas the other services were
 >
 > Answer:
 
---- question 25 fill here ---
+The overall architecture of our system can be seen in [this figure](figures/architecture.png). The starting point of the diagram is our local machine, where we computed the data, created the model classes, integrated the **wandb** service and used **hydra** to get configuration parameters. After parsing the data, we ensured the control of it by uploading it to cloud data storage from where we pull it every time a docker image is created. The diagram shows that whenever we **commit** and **push** code to **github**, it auto triggers the github actions (**unittesting, flake8 and isort**) and a **cloud build** starts building a **docker** image with the latest version of the code and dataset. Once the image is built, it can be found in the **Container Registry**. At this point, an user should create a custom job on **Vertex AI** to run the latest docker image from which results the **trained model** exported to the **Bucket storage**. Looking at the **deployment** phase, we created a **FastAPI** function which loads the model from the bucket storage and creates a prediction for a given input. Using this function, we created a docker container to deploy it in the **Cloud Run** because docker always can use the dependencies of our application. We also used **Cloud Functions** to deploy our model.
+
 
 ### Question 26
 
