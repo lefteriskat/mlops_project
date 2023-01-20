@@ -272,9 +272,7 @@ Here is our link to the unittesting actions workflow: `https://github.com/lefter
 >
 > Answer:
 
-We have used hydra to configure our project.  It helps to load hyperparameters from a config/folder containing yaml files with hyperparameters for the model, predict and train in separate config files within subfolders. So when the config-files are filled in, it gets all the necessary hyperparameters from there and the model can be trained using the following way: 
-
-python train_model.py
+We have used hydra to configure our project. It helps to load hyperparameters from a config/folder containing yaml files with hyperparameters for the model, predict and train in separate config files within subfolders. So when the config-files are filled in, the model gets all the necessary hyperparameters from them. For example, the model can be trained by just using the following commad: python src/models/train_model.py
 
 
 ### Question 13
@@ -289,8 +287,7 @@ python train_model.py
 > *one would have to do ...*
 >
 > Answer:
-
---- question 13 fill here ---
+As we stated in the previous question, we used hydra to keep track of the hyperparameters through config files. Each time the experiment was run, the respective hyperparameters were saved in the folder with the specific data and hour of the experiment. We ensured that our experiments were deterministic, by for example specifing the random seed in Pytroch and random state in the function train_test_split from the sklearn library. We further run an experiment with specified hyperparameters a couple of times and checked that the model weights and biases were the same, implying that we achaived reproducibility of expermintes. 
 
 ### Question 14
 
@@ -306,8 +303,9 @@ python train_model.py
 > *As seen in the second image we are also tracking ... and ...*
 >
 > Answer:
+We used the weights and biases service, which provieds tools to perform experiment tracking. As seen in the attached screenshot we have tracked the training loss and accuracy across epochs of training the model. Those metrics informed us about the ability of the model to learn patterns present in our data. However, evalution of the model on the training set is not sufficient when considering how well the model would behave on unseen data. To account for that, we have also tracked the validation loss and accuracy across the training process. Those metric informed us how well the model could generalise when deployed. Note, that in the attached screenshot only a couple of runs are present, since many runs were conducted to ensure that the model works as expected and no bugs were introcued. Those runs were left out as not informative for the final presentation. Further, seperate data set was put aside - the test set - and the model, after being trained for predefined number of epochs, was evaluated on it. Unfortunately, this metric is not included in weights and biases report, and one could add it to improve the user overall understanding of the model performance. As could be seen from the figures, the models achieved satisfactory performance after a couple of epochs of training, which is not suprising considering that the pretrained model was used.  
+[this figure](figures/wb_project.png)
 
---- question 14 fill here ---
 
 ### Question 15
 
@@ -336,8 +334,7 @@ For our project we developed two docker images: one for training and one for dep
 > *run of our main code at some point that showed ...*
 >
 > Answer:
-
---- question 16 fill here ---
+Debugging methods varied slightly based on each group member, however we came to the conclusion that in this project the most effective debugging methods were printing different variables, especially when it comes to shapes of tensors, and googling encuntered errors. We used the latter method frequently when working in the services provided by the google cloud. Altough, we did not use a python debugger, we agree that it could be beneficial to incorporate it into our coding practice. Regrettably, we did not profile our code. Doing so would be high on our priority list if we decided to further improve our project.
 
 ## Working in the cloud
 
