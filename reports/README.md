@@ -125,7 +125,7 @@ s221937, s222964, s222725, s210703
 >
 > Answer:
 
-We used [Transformers](https://github.com/huggingface/transformers) framework in our project. This framework implements state-of-the-art Machine Learning for Pytorch, and is a good fit for the goals of the project. From this framework we have used pre-trained the [BertForSequenceClassification](https://huggingface.co/docs/transformers/v4.25.1/en/model_doc/bert#transformers.BertForSequenceClassification)  to achieve our goal. We have started our project by using pre-trained model which help us to focus more implementing on the different techniques taught in the course. we implemented our BERT model to classifies sms text as spam or no spam using [SMS Spam Collection Dataset](https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset) where we have specified different parameters like batch size, epoch, optimizer, lr etc. for training our model.   
+We used [Transformers](https://github.com/huggingface/transformers) framework in our project. This framework implements state-of-the-art Machine Learning for Pytorch, and is a good fit for the goals of the project. From this framework we have used pre-trained the [BertForSequenceClassification](https://huggingface.co/docs/transformers/v4.25.1/en/model_doc/bert#transformers.BertForSequenceClassification)  to achieve our goal. We have started our project by using pre-trained model which help us to focus more implementing on the different techniques taught in the course. we implemented our BERT model to classifies sms text as spam or no spam using [SMS Spam Collection Dataset](https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset) where we have specified different parameters like batch size, epoch, optimizer, lr etc. for training our model.
 
 ## Coding environment
 
@@ -143,6 +143,7 @@ We used [Transformers](https://github.com/huggingface/transformers) framework in
 > *complete copy of our development enviroment, one would have to run the following commands*
 >
 > Answer:
+
 We used *pip* to install packages and *conda* to create the environment. The list of dependencies was auto-generated using *pipreqs* command which creates the *requirements.txt* file which contains a list of requirements based on imports in the project. We also added missing requirements manually. To get a complete copy of our development environment, the first step is to create a new conda environment (*conda create -n "my_environment python="version"*) and activate it (*conda activate "my_environment*). The project environment was built with Python version 3.10. After that, clone the github project (*git clone https://github.com/lefteriskat/mlops_project.git*) and install everything from the requirements.txt file (*pip install -r requirements.txt*).
 
 ### Question 5
@@ -158,7 +159,7 @@ We used *pip* to install packages and *conda* to create the environment. The lis
 > *experiments.*
 > Answer:
 
-From the cookiecutter template in the src/data we have filled make_dataset.py, add data.py  we have filled out the data.py, predict_model.py, train_model.py files, and added data.py, model.py. From this directory, we have removed the features and visualization folder including their files. We have added conf.py, Makefile, index.rst, etc. files in the doc folder. We have added .dvc, cloud_app, config, and tests folder with files for implementing DVC, FastAPI, and testing our data and model. Moreover, we also have added different files like train_local_project.dockerfile, train_cloud_project.dockerfile, predict_local_project.dockerfile, traning_in_cloud.sh, cloud_function.py, cloud_build.yaml, etc. for the purpose of building docker image and deploying our model in the cloud environment.        
+From the cookiecutter template in the src/data we have filled make_dataset.py, add data.py  we have filled out the data.py, predict_model.py, train_model.py files, and added data.py, model.py. From this directory, we have removed the features and visualization folder including their files. We have added conf.py, Makefile, index.rst, etc. files in the doc folder. We have added .dvc, cloud_app, config, and tests folder with files for implementing DVC, FastAPI, and testing our data and model. Moreover, we also have added different files like train_local_project.dockerfile, train_cloud_project.dockerfile, predict_local_project.dockerfile, traning_in_cloud.sh, cloud_function.py, cloud_build.yaml, etc. for the purpose of building docker image and deploying our model in the cloud environment. 
 
 
 ### Question 6
@@ -251,7 +252,8 @@ We used dvc to pull data when building **docker** images. Firstly, we store the 
 >
 > Answer:
 
---- question 11 fill here ---
+We have organized our CI into 3 separate files: one for doing **unittesting**, one for running **isort** and one for running **flake8**. For Isort and flake8 workflows we have used Python-version: 3.10.8 and the tests have run only on Ubuntu operating system while for unittesting we have used two Python-version: 3.10.8 and 3.8, and two operating systems: Ubuntu and Windows. Because workflows often reuse the same outputs or downloaded dependencies from one run to another we used caching actions to make our workflows faster and more efficient. Caching actions create and restore a cache identified by a unique key.
+Here is our link to the unittesting actions workflow: `https://github.com/lefteriskat/mlops_project/actions/workflows/tests.yml`
 
 ## Running code and tracking experiments
 
@@ -320,7 +322,7 @@ python train_model.py
 >
 > Answer:
 
---- question 15 fill here ---
+For our project we developed two docker images: one for training and one for deployment. The steps that we followed to use docker are: defined the dockerfiles, ran the dockerfile to build a docker image, ran the docker image to create a docker container. Every time when some code is merged to the main branch, an action is triggered in Coud Build which builds a new training docker image in the Container Registry. Running the training docker image can be done locally by pulling the image (*docker pull gcr.io/<project-id>/<image_name>:<image_tag>*) on the local machine and then creating the docker container or running in the cloud. To run locally a docker image: `docker run --name experiment1 trainer:latest`. Link to the docker image: <https://console.cloud.google.com/gcr/images/dtumlops-374515/global/project_train?project=dtumlops-374515>
 
 ### Question 16
 
