@@ -144,7 +144,7 @@ We used [Transformers](https://github.com/huggingface/transformers) framework in
 >
 > Answer:
 
-We used *pip* to install packages and *conda* to create the environment. The list of dependencies was auto-generated using *pipreqs* command which creates the *requirements.txt* file which contains a list of requirements based on imports in the project. We also added missing requirements manually. To get a complete copy of our development environment, the first step is to create a new conda environment (*conda create -n "my_environment python="version"*) and activate it (*conda activate "my_environment*). The project environment was built with Python version 3.10. After that, clone the github project (*git clone https://github.com/lefteriskat/mlops_project.git*) and install everything from the requirements.txt file (*pip install -r requirements.txt*).
+We used *pip* to install packages and *conda* to create the environment. The list of dependencies was auto-generated using *pipreqs* command which creates the *requirements.txt* file which contains a list of requirements based on imports in the project. However, we noticed that some dependecies were missing, so we added them manually. To get a complete copy of our development environment, the first step is to create a new conda environment (*conda create -n "my_environment python="version"*) and activate it (*conda activate "my_environment*). Our project environment was built with Python version 3.10. The next step is to clone the github project (*git clone https://github.com/lefteriskat/mlops_project.git*) and install everything from the requirements.txt file using this command:*pip install -r requirements.txt*.
 
 ### Question 5
 
@@ -159,8 +159,7 @@ We used *pip* to install packages and *conda* to create the environment. The lis
 > *experiments.*
 > Answer:
 
-From the cookiecutter template in the src/data we have filled make_dataset.py, predict_model.py, train_model.py files, and added data.py, model.py. From this directory, we have removed the features and visualization folder including their files. We have added conf.py, Makefile, index.rst, etc. files in the doc folder. We have added .dvc, cloud_app, config, and tests folder with files for implementing DVC, FastAPI, and testing our data and model. Moreover, we also have added different files like train_local_project.dockerfile, train_cloud_project.dockerfile, predict_local_project.dockerfile, traning_in_cloud.sh, cloud_function.py, cloud_build.yaml, etc. for the purpose of building docker image and deploying our model in the cloud environment. 
-
+The overall structure of our project consists in cookiecutter template where we have filled out the src folder with the source code for data and model. Data folder contains the file which parses and splits the data into training, validation and test, while model folder contains the model, and scripts for training and prediction. When running the make_dataset.py script, the data from data/raw folder is saved as a csv file in the data/interim folder, splitted into three different files and saved into data/processed folder. After running the training script, the model is saved into the models folder and the parameters are saved into the lightning_logs. We have added tests folder, config folder which contains hydra configuration parameters for each script, and cloud_app folder that contains FastAPI function and the requirements needed to deploy the model in cloud. Moreover we added dvc files and dockefiles for the purpose of building docker image. 
 
 ### Question 6
 
@@ -191,7 +190,7 @@ We have used flake8, isort and black in our project to ensure code quality and f
 >
 > Answer:
 
-For this project, we have implemented 2 tests focusing on the dataset and model. For the dataset we tested that after spliting it into training, validation and testing datasets, the total number of inputs is equal to the total size of the dataset. Model testing ensures that output provided by the model has the desired shaped. Unfortunately, out tests do not cover the training and prediction code.
+For this project, we have implemented two tests focusing on the dataset and model. For the dataset we tested that after splitting it into training, validation and testing datasets, the total number of inputs is equal to the total size of the dataset. Model testing ensures that output provided by the model has the desired shaped. Unfortunately, the training and prediction code is not cover by our tests.
 
 ### Question 8
 
@@ -206,7 +205,7 @@ For this project, we have implemented 2 tests focusing on the dataset and model.
 >
 > Answer:
 
-The total code coverage of code is 68% which includes dataset and model code. The coverage rate for data script is 84% and for the model script is only 36%. The high percetange for data script was expected because the data script splits the dataset and tokenizes it, so we managed to cover most parts of the code. Since we did not test the training and the prediction code at all and the model checks only one functionality, we expect our code not to detect the errors. Beside code failures, there are many reasons why our project could fail such as wrong dependencies, wrong deployment of the code, not enough permission, corrupted data.
+The total code coverage is 68% which includes tests for dataset and model code. The coverage rate for data script is 84% and for the model script is only 36%. The high percetange of data script was expected because the data script only splits the dataset and tokenizes it, so we managed to cover most functionalities. Since we did not test the training and prediction code at all and the model checks only one functionality, we expect that our code not to detect most of errors. However, beside code failures, there are many reasons why a project could fail such as wrong dependencies, wrong deployment of the code, not enough permission, corrupted data, installed different packages.
 
 ### Question 9
 
@@ -221,7 +220,7 @@ The total code coverage of code is 68% which includes dataset and model code. Th
 >
 > Answer:
 
-We made use of both branches and pull requests in our project workflow. In our group, each member had a branch that each individual had to work on. When we have done developing any specific feature we make a pull request where other group members checked the pull request and merged it. If there were any conflicts or errors found while reviewing the pull requests, other members checked the code properly and find out the solution and then correct it and merge the pull request. In this way, pull requests helped us to improve version control by allowing multiple developers to collaborate and review changes to a codebase before they are merged into the main branch.
+We made use of both branches and pull requests in our project workflow. In our group, each member had at least one branch that each individual worked on. When we have done developing any specific feature we made a pull request where other group members checked it, comment and approved it. If there were any conflicts or errors found while reviewing the pull requests, the other members checked the code properly and find out the solution, correct it and merged the pull request. Working with pull requests and branches has the advantage that multiple developers can collaborate, work on the same files. In this way, the version control is mentained, the changes are reviewed to a codebase before they merged into the main branch.
 
 ### Question 10
 
@@ -236,7 +235,7 @@ We made use of both branches and pull requests in our project workflow. In our g
 >
 > Answer:
 
-We used dvc to pull data when building **docker** images. Firstly, we stored the data into the Google Drive as remote storage solution for our data, but this solution requires to authentic each time we try to either push or pull the data. To solve this problem, we used Google Cloud Storage to store the data into a public bucket which allows us to download the data without being authenticated. The advantage of storing the data into the cloud is that the data is versioned for each experiment by replacing the large files into small metafile. Beside saving disk space on the local machine, also the experiments become reproducible in case the dataset changes. It helps us pull data from the cloud to control user permissions and consistency when building a docker image.
+We used dvc to pull data when building **docker** images. Firstly, we stored the data into the Google Drive as remote storage solution for our data, but this solution requires to authentic each time we try to either push or pull the data. To solve this problem, we used Google Cloud Storage to store the data into a public bucket which allows us to download files without being authenticated. The advantage of storing the data into the cloud is that the data is versioned for each experiment by replacing the large files into small metafile. Beside saving disk space on the local machine, the experiments also become reproducible in case the dataset changes. In the end, it helped us pull data from the cloud to control user permissions and consistency when building a docker image.
 
 ### Question 11
 
@@ -252,7 +251,7 @@ We used dvc to pull data when building **docker** images. Firstly, we stored the
 >
 > Answer:
 
-We have organized our CI into 3 separate files: one for doing **unittesting**, one for running **isort** and one for running **flake8**. We used unittesting to test our code as it was stated before(the dataset and the model code). Isort is a python library which automatically separates the imports into sections and sorts them by type, so we used isort to check if all imports are sorted correctly. The third workflow is represented by the flake8 which checked coding style and programming errors. For Isort and flake8 workflows we have used Python-version: 3.10.8 and the tests have run only on Ubuntu operating system while for unittesting we have used two Python-version: 3.10.8 and 3.8, and two operating systems: Ubuntu and Windows. Because workflows often reuse the same outputs or download dependencies from one run to another we used caching actions to make our workflows faster and more efficient. Caching actions create and restore a cache identified by a unique key. Overall, we made out of use of continous integration in the project because it tested our project automatically every time we pushed code into the main branch or we opened a pull request(PR) in the Github repository.
+We have organized our CI into 3 separate files: one for doing **unittesting**, one for running **isort** and one for running **flake8**. We used unittesting to test our code as it was stated before(the dataset and the model code). Isort is a python library which automatically separates the imports into sections and sorts them by type, so we used isort workflow to check if all imports are sorted correctly. The third workflow is represented by the flake8 which checked coding style and programming errors. For Isort and flake8 workflows we have used Python-version: 3.10.8 and the tests have run only on Ubuntu operating system while for unittesting we have used two Python-version: 3.10.8 and 3.8, and two operating systems: Ubuntu and Windows. Because workflows often reuse the same outputs or download dependencies from one run to another we used caching actions to make our workflows faster and more efficient. Caching actions create and restore a cache identified by a unique key. Overall, we made out of use of continous integration in the project because it tested our project automatically every time we pushed code into the main branch or we opened a pull request(PR) in the Github repository.
 Here is our link to the unittesting actions workflow: `https://github.com/lefteriskat/mlops_project/actions/workflows/tests.yml`
 
 ## Running code and tracking experiments
@@ -288,7 +287,7 @@ We have used hydra to configure our project. It helps to load hyperparameters fr
 >
 > Answer:
 
-As we stated in the previous question, we used hydra to keep track of the hyperparameters through config files. Each time the experiment was run, the respective hyperparameters were saved in the folder with the specific data and hour of the experiment. We ensured that our experiments were deterministic, by for example specifing the random seed in Pytroch and random state in the function train_test_split from the sklearn library. We further run an experiment with specified hyperparameters a couple of times and checked that the model weights and biases were the same, implying that we achaived reproducibility of expermintes. 
+As we stated in the previous question, we used hydra to keep track of the hyperparameters through config files. Each time the experiment was run, the respective hyperparameters were saved in the folder with the specific data and hour of the experiment. We ensured that our experiments were deterministic, by for example specifing the random seed in Pytroch and random state in the function train_test_split from the sklearn library. We further run an experiment with specified hyperparameters a couple of times and checked that the model weights and biases were the same, implying that we achieved reproducibility of experiments. 
 
 ### Question 14
 
@@ -305,7 +304,7 @@ As we stated in the previous question, we used hydra to keep track of the hyperp
 >
 > Answer:
 
-We used the weights and biases service, which provieds tools to perform experiment tracking. As seen in the attached screenshot we have tracked the training loss and accuracy across epochs of training the model. Those metrics informed us about the ability of the model to learn patterns present in our data. However, evalution of the model on the training set is not sufficient when considering how well the model would behave on unseen data. To account for that, we have also tracked the validation loss and accuracy across the training process. Those metric informed us how well the model could generalise when deployed. Note, that in the attached screenshot only a couple of runs are present, since many runs were conducted to ensure that the model works as expected and no bugs were introcued. Those runs were left out as not informative for the final presentation. Further, seperate data set was put aside - the test set - and the model, after being trained for predefined number of epochs, was evaluated on it. Unfortunately, this metric is not included in weights and biases report, and one could add it to improve the user overall understanding of the model performance. As could be seen from the figures, the models achieved satisfactory performance after a couple of epochs of training, which is not suprising considering that the pretrained model was used.  
+We used the weights and biases service, which provides tools to perform experiment tracking. As seen in the attached screenshot we have tracked the training loss and accuracy across epochs of training the model. Those metrics informed us about the ability of the model to learn patterns present in our data. However, evaluation of the model on the training set is not sufficient when considering how well the model would behave on unseen data. To account for that, we have also tracked the validation loss and accuracy across the training process. Those metric informed us how well the model could generalise when deployed. Note, that in the attached screenshot only a couple of runs are present, since many runs were conducted to ensure that the model works as expected and no bugs were introduced. Those runs were left out as not informative for the final presentation. Furthermore, separate data set was put aside - the test set - and the model, after being trained for predefined number of epochs, was evaluated on it. Unfortunately, this metric is not included in weights and biases report, and one could add it to improve the user overall understanding of the model performance. As could be seen from the figures, the models achieved satisfactory performance after a couple of epochs of training, which is not suprising considering that the pretrained model was used.  
 ![this figure](figures/wb_project.png)
 
 
@@ -322,7 +321,7 @@ We used the weights and biases service, which provieds tools to perform experime
 >
 > Answer:
 
-For our project we developed two docker images: one for training and one for deployment. The steps that we followed to use docker are: defined the dockerfiles, ran the dockerfile to build a docker image, ran the docker image to create a docker container. Every time when some code is merged to the main branch, an action is triggered in Coud Build which builds a new training docker image in the Container Registry. Running the training docker image can be done locally by pulling the image (*docker pull gcr.io/<project-id>/<image_name>:<image_tag>*) on the local machine and then creating the docker container or running in the cloud. To run locally a docker image: `docker run --name experiment1 trainer:latest`. Link to the docker image: <https://console.cloud.google.com/gcr/images/dtumlops-374515/global/project_train?project=dtumlops-374515>
+For our project we developed two docker images: one for training and one for deployment. The steps that we followed to use docker are: defined the dockerfiles, ran the dockerfile to build a docker image, ran the docker image to create a docker container. Every time when some code is merged to the main branch, an action is triggered in Cloud Build which builds a new training docker image in the Container Registry. Running the training docker image can be done locally by pulling the image (*docker pull gcr.io/<project-id>/<image_name>:<image_tag>*) on the local machine and then creating the docker container or running in the cloud. To run locally a docker image use this command: `docker run --name experiment1 trainer:latest`. Link to the docker image: <https://console.cloud.google.com/gcr/images/dtumlops-374515/global/project_train?project=dtumlops-374515>
 
 ### Question 16
 
