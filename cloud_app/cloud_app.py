@@ -12,7 +12,7 @@ TOKENIZER_MAX_LEN = 10
 
 app = FastAPI()
 
-client = storage.Client().create_anonymous_client()
+client = storage.Client()
 bucket = client.bucket(BUCKET_NAME)
 blob = bucket.blob(MODEL_FILE).download_as_bytes()
 buffer = io.BytesIO(blob)
