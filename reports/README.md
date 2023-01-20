@@ -253,7 +253,7 @@ We used dvc to pull data when building **docker** images. Firstly, we store the 
 > Answer:
 
 We have organized our CI into 3 separate files: one for doing **unittesting**, one for running **isort** and one for running **flake8**. For Isort and flake8 workflows we have used Python-version: 3.10.8 and the tests have run only on Ubuntu operating system while for unittesting we have used two Python-version: 3.10.8 and 3.8, and two operating systems: Ubuntu and Windows. Because workflows often reuse the same outputs or downloaded dependencies from one run to another we used caching actions to make our workflows faster and more efficient. Caching actions create and restore a cache identified by a unique key.
-[Here] is our link to the unittesting actions workflow. https://github.com/lefteriskat/mlops_project/actions/workflows/tests.yml
+Here is our link to the unittesting actions workflow: `https://github.com/lefteriskat/mlops_project/actions/workflows/tests.yml`
 
 ## Running code and tracking experiments
 
