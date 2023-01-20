@@ -252,7 +252,7 @@ We used dvc to pull data when building **docker** images. Firstly, we stored the
 >
 > Answer:
 
-We have organized our CI into 3 separate files: one for doing **unittesting**, one for running **isort** and one for running **flake8**. For Isort and flake8 workflows we have used Python-version: 3.10.8 and the tests have run only on Ubuntu operating system while for unittesting we have used two Python-version: 3.10.8 and 3.8, and two operating systems: Ubuntu and Windows. Because workflows often reuse the same outputs or downloaded dependencies from one run to another we used caching actions to make our workflows faster and more efficient. Caching actions create and restore a cache identified by a unique key.
+We have organized our CI into 3 separate files: one for doing **unittesting**, one for running **isort** and one for running **flake8**. We used unittesting to test our code as it was stated before(the dataset and the model code). Isort is a python library which automatically separates the imports into sections and sorts them by type, so we used isort to check if all imports are sorted correctly. The third workflow is represented by the flake8 which checked coding style and programming errors. For Isort and flake8 workflows we have used Python-version: 3.10.8 and the tests have run only on Ubuntu operating system while for unittesting we have used two Python-version: 3.10.8 and 3.8, and two operating systems: Ubuntu and Windows. Because workflows often reuse the same outputs or download dependencies from one run to another we used caching actions to make our workflows faster and more efficient. Caching actions create and restore a cache identified by a unique key. Overall, we made out of use of continous integration in the project because it tested our project automatically every time we pushed code into the main branch or we opened a pull request(PR) in the Github repository.
 Here is our link to the unittesting actions workflow: `https://github.com/lefteriskat/mlops_project/actions/workflows/tests.yml`
 
 ## Running code and tracking experiments
@@ -294,7 +294,7 @@ As we stated in the previous question, we used hydra to keep track of the hyperp
 
 > **Upload 1 to 3 screenshots that show the experiments that you have done in W&B (or another experiment tracking**
 > **service of your choice). This may include loss graphs, logged images, hyperparameter sweeps etc. You can take**
-> **inspiration from [this figure](figures/wandb.png). Explain what metrics you are tracking and why they are**
+> **inspiration from ![this figure](figures/wandb.png). Explain what metrics you are tracking and why they are**
 > **important.**
 >
 > Answer length: 200-300 words + 1 to 3 screenshots.
@@ -306,7 +306,7 @@ As we stated in the previous question, we used hydra to keep track of the hyperp
 > Answer:
 
 We used the weights and biases service, which provieds tools to perform experiment tracking. As seen in the attached screenshot we have tracked the training loss and accuracy across epochs of training the model. Those metrics informed us about the ability of the model to learn patterns present in our data. However, evalution of the model on the training set is not sufficient when considering how well the model would behave on unseen data. To account for that, we have also tracked the validation loss and accuracy across the training process. Those metric informed us how well the model could generalise when deployed. Note, that in the attached screenshot only a couple of runs are present, since many runs were conducted to ensure that the model works as expected and no bugs were introcued. Those runs were left out as not informative for the final presentation. Further, seperate data set was put aside - the test set - and the model, after being trained for predefined number of epochs, was evaluated on it. Unfortunately, this metric is not included in weights and biases report, and one could add it to improve the user overall understanding of the model performance. As could be seen from the figures, the models achieved satisfactory performance after a couple of epochs of training, which is not suprising considering that the pretrained model was used.  
-[this figure](figures/wb_project.png)
+![this figure](figures/wb_project.png)
 
 
 ### Question 15
@@ -384,8 +384,8 @@ We used the following services:
 >
 > Answer:
 
-[Gcp buckets](figures/gcp_bucket.png)
-[Trained model bucket content](figures/trained_model_bucket.png)
+![Gcp buckets](figures/gcp_bucket.png)
+![Trained model bucket content](figures/trained_model_bucket.png)
 
 ### Question 20
 
@@ -394,7 +394,7 @@ We used the following services:
 >
 > Answer:
 
-[GCP Container Registry](figures/cloud_container_registry.png)
+![GCP Container Registry](figures/cloud_container_registry.png)
 
 ### Question 21
 
@@ -403,7 +403,7 @@ We used the following services:
 >
 > Answer:
 
-[GCP Build History](figures/build_history.png)
+![GCP Build History](figures/build_history.png)
 
 
 ### Question 22
@@ -477,7 +477,7 @@ credits during both the exercises and te project whereas the other services were
 >
 > Answer:
 
-The overall architecture of our system can be seen in [this figure](figures/architecture.png). The starting point of the diagram is our local machine, where we computed the data, created the model classes, integrated the **wandb** service and used **hydra** to get configuration parameters. After parsing the data, we ensured the control of it by uploading it to cloud data storage from where we pull it every time a docker image is created. The diagram shows that whenever we **commit** and **push** code to **github**, it auto triggers the github actions (**unittesting, flake8 and isort**) and a **cloud build** starts building a **docker** image with the latest version of the code and dataset. Once the image is built, it can be found in the **Container Registry**. At this point, an user should create a custom job on **Vertex AI** to run the latest docker image from which results the **trained model** exported to the **Bucket storage**. Looking at the **deployment** phase, we created a **FastAPI** function which loads the model from the bucket storage and creates a prediction for a given input. Using this function, we created a docker container to deploy it in the **Cloud Run** because docker always can use the dependencies of our application. We also used **Cloud Functions** to deploy our model.
+The overall architecture of our system can be seen in ![this figure](figures/architecture.png). The starting point of the diagram is our local machine, where we computed the data, created the model classes, integrated the **wandb** service and used **hydra** to get configuration parameters. After parsing the data, we ensured the control of it by uploading it to cloud data storage from where we pull it every time a docker image is created. The diagram shows that whenever we **commit** and **push** code to **github**, it auto triggers the github actions (**unittesting, flake8 and isort**) and a **cloud build** starts building a **docker** image with the latest version of the code and dataset. Once the image is built, it can be found in the **Container Registry**. At this point, an user should create a custom job on **Vertex AI** to run the latest docker image from which results the **trained model** exported to the **Bucket storage**. Looking at the **deployment** phase, we created a **FastAPI** function which loads the model from the bucket storage and creates a prediction for a given input. Using this function, we created a docker container to deploy it in the **Cloud Run** because docker always can use the dependencies of our application. We also used **Cloud Functions** to deploy our model.
 
 
 ### Question 26
