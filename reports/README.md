@@ -294,7 +294,7 @@ As we stated in the previous question, we used hydra to keep track of the hyperp
 
 > **Upload 1 to 3 screenshots that show the experiments that you have done in W&B (or another experiment tracking**
 > **service of your choice). This may include loss graphs, logged images, hyperparameter sweeps etc. You can take**
-> **inspiration from ![this figure](figures/wandb.png). Explain what metrics you are tracking and why they are**
+> **inspiration from [this figure](figures/wandb.png). Explain what metrics you are tracking and why they are**
 > **important.**
 >
 > Answer length: 200-300 words + 1 to 3 screenshots.
@@ -373,7 +373,7 @@ We used the following services:
 >
 > Answer:
 
---- question 18 fill here ---
+We used the compute engine when the Cloud Build Trigger was enabled to build the docker image. We used the standard virtual machine (VM) because that is the machine that Cloud Build runs the default builds on. The VM used is E2 machine with 2vCPU and 4 GB memory. Since building docker images is usually disk space intensive and time consuming, virtual machines have helped us to use large scale hardware and run processes in the background. Furthermore, in this way we ensured that the model could be trained without any further inference. Compute engine is an useful tool because provides security, backups, scalability and storage efficency.
 
 ### Question 19
 
@@ -490,7 +490,7 @@ The overall architecture of our system can be seen in ![this figure](figures/arc
 >
 > Answer:
 
---- question 26 fill here ---
+The biggest challenges we encountered in the project were related to deploying the FastAPI application locally and building the docker image in the cloud. The reason we struggled to build docker images in the cloud was due to lack of permissions and the fact that building a docker image took around half an hour. Even though we took the advantage of using dvc to extract the data, so we could download the data without being logged in, the problem was caused by the wandb service. In the end, we managed to solve this problem by using the Secret Manager service to generate a secret key needed to connect to the wandb service. Our second biggest challenge was the local deployment which hit us again with a lack of permissions. We wanted to download the model from Bucket Storage and make a new prediction based on it, but the docker container could not connect to our cloud storage. Unfortunately, this problem was not solved by our team and we deployed the model directly in the cloud. Another problem our team encountered was the lack of disk space, as the project generally required more local memory than we expected. This was especially problematic to some of the group members who were not always able to build docker. The general struggle and sometimes the source of frustration was the fact that building docker images required a considerable amount of time and minor changes could be implemented only after waiting for quite a while. It significantly slowed our overall progress when we were still learning how to properly set docker files.
 
 ### Question 27
 
