@@ -1,31 +1,3 @@
-<<<<<<< HEAD
-# -*- coding: utf-8 -*-
-import logging
-import os
-import zipfile
-from pathlib import Path
-
-import click
-import numpy as np
-import pandas
-import torch
-<<<<<<< HEAD
-from dotenv import find_dotenv, load_dotenv
-=======
-import numpy as np
-import requests 
->>>>>>> main
-
-
-@click.command()
-@click.argument('input_filepath', type=click.Path(exists=True))
-@click.argument('output_filepath', type=click.Path())
-def main(input_filepath, output_filepath):
-    """ Runs data processing scripts to turn raw data from (../raw) into
-        cleaned data ready to be analyzed (saved in ../processed).
-    """
-    logger = logging.getLogger(__name__)
-=======
 import os
 import logging
 from pathlib import Path
@@ -35,7 +7,6 @@ import pandas as pd
 from omegaconf import DictConfig
 from dotenv import find_dotenv, load_dotenv
 from sklearn.model_selection import train_test_split
->>>>>>> ec9bdd6340a48dc32e2b468260773ae77a103ede
 
 
 @hydra.main(
