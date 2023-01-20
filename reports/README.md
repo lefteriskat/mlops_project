@@ -354,7 +354,13 @@ For our project we developed two docker images: one for training and one for dep
 >
 > Answer:
 
---- question 17 fill here ---
+We used the following services:
+* Cloud Storage Buckets: Buckets in GCP are basic containers where you can store data in the cloud.
+* Cloud Build: Cloud Build is a service that executes your builds on Google Cloud.
+* Vertex AI: Vertex AI is a machine learning (ML) platform that lets you train and deploy ML models and AI applications.
+* Container Registry: Container Registry is a service for storing private container images.
+* Cloud Functions: Google Cloud Functions is a serverless execution environment.
+* Cloud Run: Cloud Run is a managed compute platform that enables you to run containers that are invocable via requests or events. Cloud Run is serverless: it abstracts away all infrastructure management, so you can focus on what matters most, building great applications.
 
 ### Question 18
 
@@ -378,7 +384,8 @@ For our project we developed two docker images: one for training and one for dep
 >
 > Answer:
 
---- question 19 fill here ---
+[Gcp buckets](figures/gcp_bucket.png)
+[Trained model bucket content](figures/trained_model_bucket.png)
 
 ### Question 20
 
@@ -387,7 +394,7 @@ For our project we developed two docker images: one for training and one for dep
 >
 > Answer:
 
---- question 20 fill here ---
+[GCP Container Registry](figures/cloud_container_registry.png)
 
 ### Question 21
 
@@ -396,7 +403,8 @@ For our project we developed two docker images: one for training and one for dep
 >
 > Answer:
 
---- question 21 fill here ---
+[GCP Build History](figures/build_history.png)
+
 
 ### Question 22
 
@@ -412,7 +420,9 @@ For our project we developed two docker images: one for training and one for dep
 >
 > Answer:
 
---- question 22 fill here ---
+We used Cloud Build Service to create a trigger which is activated every time we push to the main branch of our github repository. When activated a docker image is created and stored in the Container Registry from our training dockerfile.  When the image is created from the previous step we manually create a custom job which runs a container using the generated image which runs the training of our model and also extracts the trained model via torchscript. Then the extracted model is pushed to a gcp bucket. After we created a fast_api application which loads our model from the gcp bucket that was extracted from the custom training job and after getting an sms text as input it provides the prediction of our model regarding if it is spam or not. Afterwards we created a docker image containing this application which we manually pushed to the google cloud container. Then we used cloud run to deploy this image and make it available for users.
+ You can invoke our app by running the following command:
+ *`curl -X 'GET'   'https://gcp-cloud-app-2-avta7xclua-lz.a.run.app/check_if_spam?sms_text=You%20won%203000%20dollars'   -H 'accept: application/json'`*
 
 ### Question 23
 
@@ -427,7 +437,11 @@ For our project we developed two docker images: one for training and one for dep
 >
 > Answer:
 
---- question 23 fill here ---
+We did not manage to implement monitoring. Nevertheless monitoring is a very significant part of a real-world model deployment since 
+it measures the model's performance and inform us about different events that maybe require some actions from us. 
+For example, errors, where we have to provide a fix asap to make our deployed model available again. 
+Another case where we have to take an action, and it is ML related, is when the accuracy of our model has dropped significantly due to data drifting
+and we need to re-train it with new data. Therefore, monitoring is a must have for real-world ML applications where the model is used for several puproses and you have to ensure both quality for our predictions and availability.
 
 ### Question 24
 
@@ -441,7 +455,8 @@ For our project we developed two docker images: one for training and one for dep
 >
 > Answer:
 
---- question 24 fill here ---
+On average we spent 20$ each. The most expensive service was the storage which was the only one continuously consuming 
+credits during both the exercises and te project whereas the other services were consuming just when we were using them.
 
 ## Overall discussion of project
 
