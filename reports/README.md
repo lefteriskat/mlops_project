@@ -50,7 +50,7 @@ end of the project.
 
 ### Week 1
 
-* [:heavy_check_mark:] Create a git repository
+* [X] Create a git repository
 * [X] Make sure that all team members have write access to the github repository
 * [X] Create a dedicated environment for you project to keep track of your packages
 * [X] Create the initial file structure using cookiecutter
@@ -72,16 +72,16 @@ end of the project.
 
 ### Week 2
 
-* [ ] Write unit tests related to the data part of your code
-* [ ] Write unit tests related to model construction and or model training
-* [ ] Calculate the coverage.
-* [ ] Get some continuous integration running on the github repository
-* [ ] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
-* [ ] Create a trigger workflow for automatically building your docker images
-* [ ] Get your model training in GCP using either the Engine or Vertex AI
-* [ ] Create a FastAPI application that can do inference using your model
+* [X] Write unit tests related to the data part of your code
+* [X] Write unit tests related to model construction and or model training
+* [X] Calculate the coverage.
+* [X] Get some continuous integration running on the github repository
+* [X] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
+* [X] Create a trigger workflow for automatically building your docker images
+* [X] Get your model training in GCP using either the Engine or Vertex AI
+* [X] Create a FastAPI application that can do inference using your model
 * [ ] If applicable, consider deploying the model locally using torchserve
-* [ ] Deploy your model in GCP using either Functions or Run as the backend
+* [X] Deploy your model in GCP using either Functions or Run as the backend
 
 ### Week 3
 
@@ -125,7 +125,7 @@ s221937, s222964, s222725, s210703
 >
 > Answer:
 
-We used [Transformers](https://github.com/huggingface/transformers) framework in our project. This framework implements state-of-the-art Machine Learning for Pytorch, and is a good fit for the goals of the project. From this framework we have used pre-trained the [BertForSequenceClassification](https://huggingface.co/docs/transformers/v4.25.1/en/model_doc/bert#transformers.BertForSequenceClassification)  to achieve our goal. We have started our project by using pre-trained model which help us to focus more implementing on the different techniques taught in the course. we implemented our BERT model to classifies sms text as spam or no spam using [SMS Spam Collection Dataset](https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset) where we have specified different parameters like batch size, epoch, optimizer, lr etc. for training our model.   
+We used [Transformers](https://github.com/huggingface/transformers) framework in our project. This framework implements state-of-the-art Machine Learning for Pytorch, and is a good fit for the goals of the project. From this framework we have used pre-trained the [BERT-TINY](https://huggingface.co/prajjwal1/bert-tiny), since it is a lighweight model and with some training in our dataset can achieve the spam classification goal with high accuracy.  We have started our project by using pre-trained model which help us to focus more implementing on the different techniques taught in the course. we implemented our BERT model to classifies sms text as spam or no spam using [SMS Spam Collection Dataset](https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset) where we have specified different parameters like batch size, epoch, optimizer, lr etc. for training our model.
 
 ## Coding environment
 
@@ -143,6 +143,7 @@ We used [Transformers](https://github.com/huggingface/transformers) framework in
 > *complete copy of our development enviroment, one would have to run the following commands*
 >
 > Answer:
+
 We used *pip* to install packages and *conda* to create the environment. The list of dependencies was auto-generated using *pipreqs* command which creates the *requirements.txt* file which contains a list of requirements based on imports in the project. We also added missing requirements manually. To get a complete copy of our development environment, the first step is to create a new conda environment (*conda create -n "my_environment python="version"*) and activate it (*conda activate "my_environment*). The project environment was built with Python version 3.10. After that, clone the github project (*git clone https://github.com/lefteriskat/mlops_project.git*) and install everything from the requirements.txt file (*pip install -r requirements.txt*).
 
 ### Question 5
@@ -158,7 +159,7 @@ We used *pip* to install packages and *conda* to create the environment. The lis
 > *experiments.*
 > Answer:
 
-From the cookiecutter template in the src/data we have filled make_dataset.py, add data.py  we have filled out the data.py, predict_model.py, train_model.py files, and added data.py, model.py. From this directory, we have removed the features and visualization folder including their files. We have added conf.py, Makefile, index.rst, etc. files in the doc folder. We have added .dvc, cloud_app, config, and tests folder with files for implementing DVC, FastAPI, and testing our data and model. Moreover, we also have added different files like train_local_project.dockerfile, train_cloud_project.dockerfile, predict_local_project.dockerfile, traning_in_cloud.sh, cloud_function.py, cloud_build.yaml, etc. for the purpose of building docker image and deploying our model in the cloud environment.        
+From the cookiecutter template in the src/data we have filled make_dataset.py, predict_model.py, train_model.py files, and added data.py, model.py. From this directory, we have removed the features and visualization folder including their files. We have added conf.py, Makefile, index.rst, etc. files in the doc folder. We have added .dvc, cloud_app, config, and tests folder with files for implementing DVC, FastAPI, and testing our data and model. Moreover, we also have added different files like train_local_project.dockerfile, train_cloud_project.dockerfile, predict_local_project.dockerfile, traning_in_cloud.sh, cloud_function.py, cloud_build.yaml, etc. for the purpose of building docker image and deploying our model in the cloud environment. 
 
 
 ### Question 6
@@ -220,7 +221,7 @@ The total code coverage of code is 68% which includes dataset and model code. Th
 >
 > Answer:
 
---- question 9 fill here ---
+We made use of both branches and pull requests in our project workflow. In our group, each member had a branch that each individual had to work on. When we have done developing any specific feature we make a pull request where other group members checked the pull request and merged it. If there were any conflicts or errors found while reviewing the pull requests, other members checked the code properly and find out the solution and then correct it and merge the pull request. In this way, pull requests helped us to improve version control by allowing multiple developers to collaborate and review changes to a codebase before they are merged into the main branch.
 
 ### Question 10
 
@@ -235,7 +236,7 @@ The total code coverage of code is 68% which includes dataset and model code. Th
 >
 > Answer:
 
-We used dvc to pull data when building **docker** images. Firstly, we store the data into the Google Drive as remote storage solution for our data, but this solution requires to authentic each time we try to either push or pull the data. To solve this problem, we used Google Cloud Storage to store the data into a public bucket which allows us to download the data without being authenticated. The advantage of storing the data into the cloud is that the data is versioned for each experiment by replacing the large files into small metafile. Beside saving disk space on the local machine, also the experiments become reproducible in case the dataset changes. It helps us pull data from the cloud to control user permissions and consistency when building a docker image.
+We used dvc to pull data when building **docker** images. Firstly, we stored the data into the Google Drive as remote storage solution for our data, but this solution requires to authentic each time we try to either push or pull the data. To solve this problem, we used Google Cloud Storage to store the data into a public bucket which allows us to download the data without being authenticated. The advantage of storing the data into the cloud is that the data is versioned for each experiment by replacing the large files into small metafile. Beside saving disk space on the local machine, also the experiments become reproducible in case the dataset changes. It helps us pull data from the cloud to control user permissions and consistency when building a docker image.
 
 ### Question 11
 
@@ -251,7 +252,8 @@ We used dvc to pull data when building **docker** images. Firstly, we store the 
 >
 > Answer:
 
---- question 11 fill here ---
+We have organized our CI into 3 separate files: one for doing **unittesting**, one for running **isort** and one for running **flake8**. We used unittesting to test our code as it was stated before(the dataset and the model code). Isort is a python library which automatically separates the imports into sections and sorts them by type, so we used isort to check if all imports are sorted correctly. The third workflow is represented by the flake8 which checked coding style and programming errors. For Isort and flake8 workflows we have used Python-version: 3.10.8 and the tests have run only on Ubuntu operating system while for unittesting we have used two Python-version: 3.10.8 and 3.8, and two operating systems: Ubuntu and Windows. Because workflows often reuse the same outputs or download dependencies from one run to another we used caching actions to make our workflows faster and more efficient. Caching actions create and restore a cache identified by a unique key. Overall, we made out of use of continous integration in the project because it tested our project automatically every time we pushed code into the main branch or we opened a pull request(PR) in the Github repository.
+Here is our link to the unittesting actions workflow: `https://github.com/lefteriskat/mlops_project/actions/workflows/tests.yml`
 
 ## Running code and tracking experiments
 
@@ -270,6 +272,7 @@ We used dvc to pull data when building **docker** images. Firstly, we store the 
 >
 > Answer:
 
+We have used hydra to configure our project. It helps to load hyperparameters from a config/folder containing yaml files with hyperparameters for the model, predict and train in separate config files within subfolders. So when the config-files are filled in, the model gets all the necessary hyperparameters from them. For example, the model can be trained by just using the following commad: python src/models/train_model.py
 We have used hydra to configure our project. It helps to load hyperparameters from a config/folder containing yaml files with hyperparameters for the model, predict and train in separate config files within subfolders. So when the config-files are filled in, the model gets all the necessary hyperparameters from them. For example, the model can be trained by just using the following commad: python src/models/train_model.py
 
 
@@ -291,7 +294,7 @@ As we stated in the previous question, we used hydra to keep track of the hyperp
 
 > **Upload 1 to 3 screenshots that show the experiments that you have done in W&B (or another experiment tracking**
 > **service of your choice). This may include loss graphs, logged images, hyperparameter sweeps etc. You can take**
-> **inspiration from [this figure](figures/wandb.png). Explain what metrics you are tracking and why they are**
+> **inspiration from ![this figure](figures/wandb.png). Explain what metrics you are tracking and why they are**
 > **important.**
 >
 > Answer length: 200-300 words + 1 to 3 screenshots.
@@ -318,7 +321,7 @@ We used the weights and biases service, which provieds tools to perform experime
 >
 > Answer:
 
---- question 15 fill here ---
+For our project we developed two docker images: one for training and one for deployment. The steps that we followed to use docker are: defined the dockerfiles, ran the dockerfile to build a docker image, ran the docker image to create a docker container. Every time when some code is merged to the main branch, an action is triggered in Coud Build which builds a new training docker image in the Container Registry. Running the training docker image can be done locally by pulling the image (*docker pull gcr.io/<project-id>/<image_name>:<image_tag>*) on the local machine and then creating the docker container or running in the cloud. To run locally a docker image: `docker run --name experiment1 trainer:latest`. Link to the docker image: <https://console.cloud.google.com/gcr/images/dtumlops-374515/global/project_train?project=dtumlops-374515>
 
 ### Question 16
 
@@ -349,7 +352,13 @@ Debugging methods varied slightly based on each group member, however we came to
 >
 > Answer:
 
---- question 17 fill here ---
+We used the following services:
+* Cloud Storage Buckets: Buckets in GCP are basic containers where you can store data in the cloud.
+* Cloud Build: Cloud Build is a service that executes your builds on Google Cloud.
+* Vertex AI: Vertex AI is a machine learning (ML) platform that lets you train and deploy ML models and AI applications.
+* Container Registry: Container Registry is a service for storing private container images.
+* Cloud Functions: Google Cloud Functions is a serverless execution environment.
+* Cloud Run: Cloud Run is a managed compute platform that enables you to run containers that are invocable via requests or events. Cloud Run is serverless: it abstracts away all infrastructure management, so you can focus on what matters most, building great applications.
 
 ### Question 18
 
@@ -373,7 +382,8 @@ Debugging methods varied slightly based on each group member, however we came to
 >
 > Answer:
 
---- question 19 fill here ---
+![Gcp buckets](figures/gcp_bucket.png)
+![Trained model bucket content](figures/trained_model_bucket.png)
 
 ### Question 20
 
@@ -382,7 +392,7 @@ Debugging methods varied slightly based on each group member, however we came to
 >
 > Answer:
 
---- question 20 fill here ---
+![GCP Container Registry](figures/cloud_container_registry.png)
 
 ### Question 21
 
@@ -391,7 +401,8 @@ Debugging methods varied slightly based on each group member, however we came to
 >
 > Answer:
 
---- question 21 fill here ---
+![GCP Build History](figures/build_history.png)
+
 
 ### Question 22
 
@@ -407,7 +418,9 @@ Debugging methods varied slightly based on each group member, however we came to
 >
 > Answer:
 
---- question 22 fill here ---
+We used Cloud Build Service to create a trigger which is activated every time we push to the main branch of our github repository. When activated a docker image is created and stored in the Container Registry from our training dockerfile.  When the image is created from the previous step we manually create a custom job which runs a container using the generated image which runs the training of our model and also extracts the trained model via torchscript. Then the extracted model is pushed to a gcp bucket. After we created a fast_api application which loads our model from the gcp bucket that was extracted from the custom training job and after getting an sms text as input it provides the prediction of our model regarding if it is spam or not. Afterwards we created a docker image containing this application which we manually pushed to the google cloud container. Then we used cloud run to deploy this image and make it available for users.
+ You can invoke our app by running the following command:
+ *`curl -X 'GET'   'https://gcp-cloud-app-2-avta7xclua-lz.a.run.app/check_if_spam?sms_text=You%20won%203000%20dollars'   -H 'accept: application/json'`*
 
 ### Question 23
 
@@ -422,7 +435,11 @@ Debugging methods varied slightly based on each group member, however we came to
 >
 > Answer:
 
---- question 23 fill here ---
+We did not manage to implement monitoring. Nevertheless monitoring is a very significant part of a real-world model deployment since 
+it measures the model's performance and inform us about different events that maybe require some actions from us. 
+For example, errors, where we have to provide a fix asap to make our deployed model available again. 
+Another case where we have to take an action, and it is ML related, is when the accuracy of our model has dropped significantly due to data drifting
+and we need to re-train it with new data. Therefore, monitoring is a must have for real-world ML applications where the model is used for several puproses and you have to ensure both quality for our predictions and availability.
 
 ### Question 24
 
@@ -436,7 +453,8 @@ Debugging methods varied slightly based on each group member, however we came to
 >
 > Answer:
 
---- question 24 fill here ---
+On average we spent 20$ each. The most expensive service was the storage which was the only one continuously consuming 
+credits during both the exercises and te project whereas the other services were consuming just when we were using them.
 
 ## Overall discussion of project
 
@@ -457,7 +475,8 @@ Debugging methods varied slightly based on each group member, however we came to
 >
 > Answer:
 
---- question 25 fill here ---
+The overall architecture of our system can be seen in ![this figure](figures/architecture.png). The starting point of the diagram is our local machine, where we computed the data, created the model classes, integrated the **wandb** service and used **hydra** to get configuration parameters. After parsing the data, we ensured the control of it by uploading it to cloud data storage from where we pull it every time a docker image is created. The diagram shows that whenever we **commit** and **push** code to **github**, it auto triggers the github actions (**unittesting, flake8 and isort**) and a **cloud build** starts building a **docker** image with the latest version of the code and dataset. Once the image is built, it can be found in the **Container Registry**. At this point, an user should create a custom job on **Vertex AI** to run the latest docker image from which results the **trained model** exported to the **Bucket storage**. Looking at the **deployment** phase, we created a **FastAPI** function which loads the model from the bucket storage and creates a prediction for a given input. Using this function, we created a docker container to deploy it in the **Cloud Run** because docker always can use the dependencies of our application. We also used **Cloud Functions** to deploy our model.
+
 
 ### Question 26
 
