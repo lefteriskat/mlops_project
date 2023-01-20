@@ -2,11 +2,12 @@
 # pip install click
 # pip install markdown
 
+import re
+import warnings
+from functools import partial
+
 import click
 import markdown
-import warnings
-import re
-from functools import partial
 
 
 class TeacherWarning(UserWarning):
@@ -120,7 +121,7 @@ def check():
             "Number of answers are different from the expected 27. Have you filled out every field?"
         )
 
-    for i, (ans, const) in enumerate(zip(answers, question_constrains), start=1):
+    for i, (ans, const) in enumerate(zip(answers, question_constrains)):
         const(ans, i)
 
 
