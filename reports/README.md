@@ -146,6 +146,7 @@ We used [Transformers](https://github.com/huggingface/transformers) framework in
 
 We used *pip* to install packages and *conda* to create the environment. The list of dependencies was auto-generated using *pipreqs* command which creates the *requirements.txt* file which contains a list of requirements based on imports in the project. However, we noticed that some dependecies were missing, so we added them manually. To get a complete copy of our development environment, the first step is to create a new conda environment (*conda create -n "my_environment python="version"*) and activate it (*conda activate "my_environment*). Our project environment was built with Python version 3.10. The next step is to clone the github project (*git clone https://github.com/lefteriskat/mlops_project.git*) and install everything from the requirements.txt file using this command:*pip install -r requirements.txt*.
 
+
 ### Question 5
 
 > **We expect that you initialized your project using the cookiecutter template. Explain the overall structure of your**
@@ -273,7 +274,6 @@ Here is our link to the unittesting actions workflow: `https://github.com/lefter
 
 We have used hydra to configure our project. It helps to load hyperparameters from a config/folder containing yaml files with hyperparameters for the model, predict and train in separate config files within subfolders. So when the config-files are filled in, the model gets all the necessary hyperparameters from them. For example, the model can be trained by just using the following commad: python src/models/train_model.py
 
-
 ### Question 13
 
 > **Reproducibility of experiments are important. Related to the last question, how did you secure that no information**
@@ -289,6 +289,7 @@ We have used hydra to configure our project. It helps to load hyperparameters fr
 
 As we stated in the previous question, we used hydra to keep track of the hyperparameters through config files. Each time the experiment was run, the respective hyperparameters were saved in the folder with the specific data and hour of the experiment. We ensured that our experiments were deterministic, by for example specifing the random seed in Pytroch and random state in the function train_test_split from the sklearn library. We further run an experiment with specified hyperparameters a couple of times and checked that the model weights and biases were the same, implying that we achieved reproducibility of experiments. 
 
+
 ### Question 14
 
 > **Upload 1 to 3 screenshots that show the experiments that you have done in W&B (or another experiment tracking**
@@ -303,10 +304,8 @@ As we stated in the previous question, we used hydra to keep track of the hyperp
 > *As seen in the second image we are also tracking ... and ...*
 >
 > Answer:
-
-We used the weights and biases service, which provides tools to perform experiment tracking. As seen in the attached screenshot we have tracked the training loss and accuracy across epochs of training the model. Those metrics informed us about the ability of the model to learn patterns present in our data. However, evaluation of the model on the training set is not sufficient when considering how well the model would behave on unseen data. To account for that, we have also tracked the validation loss and accuracy across the training process. Those metric informed us how well the model could generalise when deployed. Note, that in the attached screenshot only a couple of runs are present, since many runs were conducted to ensure that the model works as expected and no bugs were introduced. Those runs were left out as not informative for the final presentation. Furthermore, separate data set was put aside - the test set - and the model, after being trained for predefined number of epochs, was evaluated on it. Unfortunately, this metric is not included in weights and biases report, and one could add it to improve the user overall understanding of the model performance. As could be seen from the figures, the models achieved satisfactory performance after a couple of epochs of training, which is not suprising considering that the pretrained model was used.  
+We used the weights and biases service, which provieds tools to perform experiment tracking. As seen in the attached screenshot we have tracked the training loss and accuracy across epochs of training the model. Those metrics informed us about the ability of the model to learn patterns present in our data. However, evalution of the model on the training set is not sufficient when considering how well the model would behave on unseen data. To account for that, we have also tracked the validation loss and accuracy across the training process. Those metric informed us how well the model could generalise when deployed. Note, that in the attached screenshot only a couple of runs are present, since many runs were conducted to ensure that the model works as expected and no bugs were introcued. Those runs were left out as not informative for the final presentation. Further, seperate data set was put aside - the test set - and the model, after being trained for predefined number of epochs, was evaluated on it. Unfortunately, this metric is not included in weights and biases report, and one could add it to improve the user overall understanding of the model performance. As could be seen from the figures, the models achieved satisfactory performance after a couple of epochs of training, which is not suprising considering that the pretrained model was used.  
 ![this figure](figures/wb_project.png)
-
 
 ### Question 15
 
