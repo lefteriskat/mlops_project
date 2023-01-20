@@ -159,7 +159,7 @@ We used *pip* to install packages and *conda* to create the environment. The lis
 > *experiments.*
 > Answer:
 
-From the cookiecutter template in the src/data we have filled make_dataset.py, add data.py  we have filled out the data.py, predict_model.py, train_model.py files, and added data.py, model.py. From this directory, we have removed the features and visualization folder including their files. We have added conf.py, Makefile, index.rst, etc. files in the doc folder. We have added .dvc, cloud_app, config, and tests folder with files for implementing DVC, FastAPI, and testing our data and model. Moreover, we also have added different files like train_local_project.dockerfile, train_cloud_project.dockerfile, predict_local_project.dockerfile, traning_in_cloud.sh, cloud_function.py, cloud_build.yaml, etc. for the purpose of building docker image and deploying our model in the cloud environment. 
+From the cookiecutter template in the src/data we have filled make_dataset.py, predict_model.py, train_model.py files, and added data.py, model.py. From this directory, we have removed the features and visualization folder including their files. We have added conf.py, Makefile, index.rst, etc. files in the doc folder. We have added .dvc, cloud_app, config, and tests folder with files for implementing DVC, FastAPI, and testing our data and model. Moreover, we also have added different files like train_local_project.dockerfile, train_cloud_project.dockerfile, predict_local_project.dockerfile, traning_in_cloud.sh, cloud_function.py, cloud_build.yaml, etc. for the purpose of building docker image and deploying our model in the cloud environment. 
 
 
 ### Question 6
