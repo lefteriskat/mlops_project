@@ -1,0 +1,4 @@
+defaults:
+    - model: model_config.yaml
+    - train: train_config.yaml
+    - data: data_config.yaml

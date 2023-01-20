@@ -8,6 +8,10 @@ __pycache__/
 
 # Data folder
 /data/
+/wandb/
+/outputs/
+/lightning_logs/
+/test-project/
 
 # Distribution / packaging
 .Python
@@ -130,3 +134,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/data
+/models/

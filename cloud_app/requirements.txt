@@ -1,0 +1,7 @@
+fastapi==0.89.1
+protobuf==4.21.12
+torch==1.12.1
+transformers==4.25.1
+google-resumable-media==2.4.0
+google-cloud-storage==2.7.0
+uvicorn[standard]==0.20.0

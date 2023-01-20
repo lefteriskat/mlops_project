@@ -26,13 +26,15 @@ PYTHON_INTERPRETER = python
 # 	$(PYTHON_INTERPRETER) -m pip install -U pip setuptools wheel
 # 	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
 
-## Make Dataset
-# data: requirements
-# 	$(PYTHON_INTERPRETER) src/data/make_dataset.py data/raw data/processed
-
 data: 
-	$(PYTHON_INTERPRETER) src/data/make_dataset.py data/raw data/processed
+	$(PYTHON_INTERPRETER) src/data/make_dataset.py
 
+train:
+	$(PYTHON_INTERPRETER) src/models/train_model.py
+
+predict:
+	$(PYTHON_INTERPRETER) src/models/predict_model.py
+	
 
 ## Delete all compiled Python files
 clean:
