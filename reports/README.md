@@ -437,9 +437,9 @@ We used Cloud Build Service to create a trigger which is activated every time we
 
 We did not manage to implement monitoring. Nevertheless monitoring is a very significant part of a real-world model deployment since 
 it measures the model's performance and inform us about different events that maybe require some actions from us. 
-For example errors, where we have to provide a fix asap to make our deployed model available again. 
-Another case where we have to take an action is when the accuracy of our model has dropped significantly due to data drifting
-and we need to re-train it with new data.
+For example, errors, where we have to provide a fix asap to make our deployed model available again. 
+Another case where we have to take an action, and it is ML related, is when the accuracy of our model has dropped significantly due to data drifting
+and we need to re-train it with new data. Therefore, monitoring is a must have for real-world ML applications where the model is used for several puproses and you have to ensure both quality for our predictions and availability.
 
 ### Question 24
 
