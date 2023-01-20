@@ -50,7 +50,7 @@ end of the project.
 
 ### Week 1
 
-* [:heavy_check_mark:] Create a git repository
+* [X] Create a git repository
 * [X] Make sure that all team members have write access to the github repository
 * [X] Create a dedicated environment for you project to keep track of your packages
 * [X] Create the initial file structure using cookiecutter
@@ -72,16 +72,16 @@ end of the project.
 
 ### Week 2
 
-* [ ] Write unit tests related to the data part of your code
-* [ ] Write unit tests related to model construction and or model training
-* [ ] Calculate the coverage.
-* [ ] Get some continuous integration running on the github repository
-* [ ] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
-* [ ] Create a trigger workflow for automatically building your docker images
-* [ ] Get your model training in GCP using either the Engine or Vertex AI
-* [ ] Create a FastAPI application that can do inference using your model
+* [X] Write unit tests related to the data part of your code
+* [X] Write unit tests related to model construction and or model training
+* [X] Calculate the coverage.
+* [X] Get some continuous integration running on the github repository
+* [X] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
+* [X] Create a trigger workflow for automatically building your docker images
+* [X] Get your model training in GCP using either the Engine or Vertex AI
+* [X] Create a FastAPI application that can do inference using your model
 * [ ] If applicable, consider deploying the model locally using torchserve
-* [ ] Deploy your model in GCP using either Functions or Run as the backend
+* [X] Deploy your model in GCP using either Functions or Run as the backend
 
 ### Week 3
 
@@ -125,7 +125,7 @@ s221937, s222964, s222725, s210703
 >
 > Answer:
 
-We used [Transformers](https://github.com/huggingface/transformers) framework in our project. This framework implements state-of-the-art Machine Learning for Pytorch, and is a good fit for the goals of the project. From this framework we have used pre-trained the [BertForSequenceClassification](https://huggingface.co/docs/transformers/v4.25.1/en/model_doc/bert#transformers.BertForSequenceClassification)  to achieve our goal. We have started our project by using pre-trained model which help us to focus more implementing on the different techniques taught in the course. we implemented our BERT model to classifies sms text as spam or no spam using [SMS Spam Collection Dataset](https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset) where we have specified different parameters like batch size, epoch, optimizer, lr etc. for training our model.
+We used [Transformers](https://github.com/huggingface/transformers) framework in our project. This framework implements state-of-the-art Machine Learning for Pytorch, and is a good fit for the goals of the project. From this framework we have used pre-trained the [BERT-TINY](https://huggingface.co/prajjwal1/bert-tiny), since it is a lighweight model and with some training in our dataset can achieve the spam classification goal with high accuracy.  We have started our project by using pre-trained model which help us to focus more implementing on the different techniques taught in the course. we implemented our BERT model to classifies sms text as spam or no spam using [SMS Spam Collection Dataset](https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset) where we have specified different parameters like batch size, epoch, optimizer, lr etc. for training our model.
 
 ## Coding environment
 
@@ -287,6 +287,7 @@ We have used hydra to configure our project. It helps to load hyperparameters fr
 > *one would have to do ...*
 >
 > Answer:
+
 As we stated in the previous question, we used hydra to keep track of the hyperparameters through config files. Each time the experiment was run, the respective hyperparameters were saved in the folder with the specific data and hour of the experiment. We ensured that our experiments were deterministic, by for example specifing the random seed in Pytroch and random state in the function train_test_split from the sklearn library. We further run an experiment with specified hyperparameters a couple of times and checked that the model weights and biases were the same, implying that we achaived reproducibility of expermintes. 
 
 ### Question 14
@@ -303,6 +304,7 @@ As we stated in the previous question, we used hydra to keep track of the hyperp
 > *As seen in the second image we are also tracking ... and ...*
 >
 > Answer:
+
 We used the weights and biases service, which provieds tools to perform experiment tracking. As seen in the attached screenshot we have tracked the training loss and accuracy across epochs of training the model. Those metrics informed us about the ability of the model to learn patterns present in our data. However, evalution of the model on the training set is not sufficient when considering how well the model would behave on unseen data. To account for that, we have also tracked the validation loss and accuracy across the training process. Those metric informed us how well the model could generalise when deployed. Note, that in the attached screenshot only a couple of runs are present, since many runs were conducted to ensure that the model works as expected and no bugs were introcued. Those runs were left out as not informative for the final presentation. Further, seperate data set was put aside - the test set - and the model, after being trained for predefined number of epochs, was evaluated on it. Unfortunately, this metric is not included in weights and biases report, and one could add it to improve the user overall understanding of the model performance. As could be seen from the figures, the models achieved satisfactory performance after a couple of epochs of training, which is not suprising considering that the pretrained model was used.  
 [this figure](figures/wb_project.png)
 
@@ -334,6 +336,7 @@ For our project we developed two docker images: one for training and one for dep
 > *run of our main code at some point that showed ...*
 >
 > Answer:
+
 Debugging methods varied slightly based on each group member, however we came to the conclusion that in this project the most effective debugging methods were printing different variables, especially when it comes to shapes of tensors, and googling encuntered errors. We used the latter method frequently when working in the services provided by the google cloud. Altough, we did not use a python debugger, we agree that it could be beneficial to incorporate it into our coding practice. Regrettably, we did not profile our code. Doing so would be high on our priority list if we decided to further improve our project.
 
 ## Working in the cloud
